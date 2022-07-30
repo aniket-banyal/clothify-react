@@ -50,7 +50,7 @@ const Navbar = () => {
                     </Toolbar>
                 </AppBar>
             </HideOnScroll>
-            <Toolbar />
+            <Toolbar sx={{ mb: 2 }} />
         </>
     )
 }

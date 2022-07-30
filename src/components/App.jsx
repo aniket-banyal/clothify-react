@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import CenteredCircularProgress from './CenteredCircularProgress';
 import Navbar from './Navbar';
+import HomePageBanner from './HomePageBanner';
 
 const theme = createTheme({
   palette: {
@@ -35,6 +36,8 @@ function App() {
           <CssBaseline />
 
           <Navbar />
+
+          <HomePageBanner />
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Suspense fallback={<CenteredCircularProgress />}>
               <ClothesList />
