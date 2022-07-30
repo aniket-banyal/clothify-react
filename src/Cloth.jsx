@@ -4,7 +4,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Stack } from '@mui/material';
 
-const Product = ({ product }) => {
+const Cloth = ({ cloth }) => {
     return (
         <Card
             sx={{
@@ -17,8 +17,8 @@ const Product = ({ product }) => {
                 <CardMedia
                     component="img"
                     height="120"
-                    image={product.cover_img_url}
-                    alt={product.name}
+                    image={cloth.cover_img_url}
+                    alt={cloth.name}
                     sx={{
                         borderRadius: '0%',
                         objectFit: 'cover'
@@ -29,7 +29,7 @@ const Product = ({ product }) => {
                         variant="body1"
                         noWrap
                     >
-                        {product.name}
+                        {cloth.name}
                     </Typography>
 
                     <Stack
@@ -43,7 +43,7 @@ const Product = ({ product }) => {
                             color="text.secondary"
                             sx={{ textDecorationLine: 'line-through' }}
                         >
-                            ₹{product.retail_price}
+                            ₹{cloth.retail_price}
                         </Typography>
 
                         <Typography
@@ -51,7 +51,7 @@ const Product = ({ product }) => {
                             fontWeight={600}
                             color="text.primary"
                         >
-                            ₹{product.sell_price}
+                            ₹{cloth.sell_price}
                         </Typography>
                     </Stack>
                 </CardContent>
@@ -60,4 +60,4 @@ const Product = ({ product }) => {
     );
 }
 
-export default Product;
+export default Cloth;
