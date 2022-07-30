@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import Cloth from "./Cloth";
-import useClothes from './hooks/api/useClothes'
+import useClothes from '../hooks/api/useClothes'
 
 
 const ClothesList = () => {

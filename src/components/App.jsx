@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import CenteredCircularProgress from './CenteredCircularProgress';
+import Navbar from './Navbar';
 
 const theme = createTheme({
   palette: {
@@ -33,6 +34,7 @@ function App() {
         <Container>
           <CssBaseline />
 
+          <Navbar />
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Suspense fallback={<CenteredCircularProgress />}>
               <ClothesList />
