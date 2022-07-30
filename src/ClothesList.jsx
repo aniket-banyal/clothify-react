@@ -1,13 +1,11 @@
-import { CircularProgress, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Cloth from "./Cloth";
 import useClothes from './hooks/api/useClothes'
 
 
 const ClothesList = () => {
-    const { data: clothes, isLoading } = useClothes()
+    const { data: clothes } = useClothes()
 
-    if (isLoading)
-        return <CircularProgress />
 
     return (
         <Grid
