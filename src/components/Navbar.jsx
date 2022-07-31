@@ -6,6 +6,8 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Box from '@mui/material/Box';
 import Slide from '@mui/material/Slide';
 import { Button } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+
 
 const HideOnScroll = ({ children }) => {
     const trigger = useScrollTrigger()
@@ -21,7 +23,13 @@ HideOnScroll.propTypes = {
     children: PropTypes.element.isRequired,
 }
 
-const pages = ['Products', 'Pricing', 'Blog']
+const pages = [
+    {
+        name: 'Explore',
+        link: 'clothes'
+    },
+]
+
 
 const Navbar = () => {
     return (
@@ -40,10 +48,12 @@ const Navbar = () => {
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             {pages.map((page) => (
                                 <Button
-                                    key={page}
+                                    component={RouterLink}
+                                    to={page.link}
+                                    key={page.name}
                                     sx={{ my: 2, mx: 2, color: 'white', display: 'block' }}
                                 >
-                                    {page}
+                                    {page.name}
                                 </Button>
                             ))}
                         </Box>

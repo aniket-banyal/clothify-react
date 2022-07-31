@@ -1,8 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../../api";
 
-export const getClothes = async (gender) => {
-    const searchParams = new URLSearchParams({ gender })
+export const getClothes = async ({ gender, colors }) => {
+    if (!gender)
+        gender = ''
+    if (!colors)
+        colors = ''
+
+    const searchParams = new URLSearchParams({ gender, color: colors })
     const { data } = await api.get(
         "/clothes/",
         { params: searchParams }
@@ -10,6 +15,6 @@ export const getClothes = async (gender) => {
     return data
 }
 
-export default function useClothes(gender) {
-    return useQuery([`clothes ${gender}`], () => getClothes(gender))
+export default function useClothes({ gender, colors }) {
+    return useQuery([`clothes ${gender} ${colors}`], () => getClothes({ gender, colors }))
 }

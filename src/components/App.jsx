@@ -10,6 +10,7 @@ import CenteredCircularProgress from './CenteredCircularProgress';
 import ErrorFallback from './ErrorFallback';
 import { ErrorBoundary } from 'react-error-boundary';
 import OutletWrapper from './OutletWrapper';
+import ClothesPage from './ClothesPage';
 
 const theme = createTheme({
   palette: {
@@ -33,12 +34,21 @@ function App() {
         <Container>
           <CssBaseline />
 
-          <Navbar />
 
           <BrowserRouter>
+            <Navbar />
             <Routes>
               <Route path="/">
                 <Route index element={<HomePage />} />
+                <Route path="clothes" element={
+                  <ErrorBoundary FallbackComponent={ErrorFallback}>
+                    <Suspense fallback={<CenteredCircularProgress />}>
+                      <ClothesPage />
+                    </Suspense>
+                  </ErrorBoundary>
+                }
+                />
+
                 <Route path="categories" element={<OutletWrapper />}>
 
                   <Route
