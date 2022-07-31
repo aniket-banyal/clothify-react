@@ -1,10 +1,12 @@
 import { Grid } from "@mui/material";
 import Cloth from "./Cloth";
 import useClothes from '../hooks/api/useClothes'
+import { useGender } from "../hooks/useGender";
 
 
 const ClothesList = () => {
-    const { data: clothes } = useClothes()
+    const { gender } = useGender()
+    const { data: clothes } = useClothes(gender)
 
 
     return (
