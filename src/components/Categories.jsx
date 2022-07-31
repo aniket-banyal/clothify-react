@@ -22,11 +22,12 @@ const Categories = () => {
                 justifyContent='center'
                 sx={{
                     width: '90%',
+                    overflowX: 'scroll'
                 }}
             >
                 {filteredCategories.map(category =>
                     <Category
-                        key={category.name}
+                        key={category.id}
                         category={category}
                     />
                 )}

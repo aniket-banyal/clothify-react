@@ -8,13 +8,8 @@ import { ErrorBoundary } from "react-error-boundary";
 import { GenderContext } from '../context/GenderContext'
 import { useQueryClient } from "@tanstack/react-query";
 import { getClothes } from "../hooks/api/useClothes";
+import ErrorFallback from './ErrorFallback'
 
-
-const ErrorFallback = ({ error, resetErrorBoundary }) => {
-    return (
-        <Typography>Something went wrong</Typography>
-    )
-}
 
 const genderValues = [
     {
