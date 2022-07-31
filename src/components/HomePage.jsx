@@ -1,11 +1,14 @@
 import { Stack, Typography } from "@mui/material";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Categories from "./Categories";
 import ClothesList from "./ClothesList";
 import HomePageBanner from "./HomePageBanner";
 import CenteredCircularProgress from './CenteredCircularProgress';
 import { ErrorBoundary } from "react-error-boundary";
 import { GenderContext } from '../context/GenderContext'
+import { useQueryClient } from "@tanstack/react-query";
+import { getClothes } from "../hooks/api/useClothes";
+
 
 const ErrorFallback = ({ error, resetErrorBoundary }) => {
     return (
@@ -24,9 +27,14 @@ const genderValues = [
     }
 ]
 
+
 const HomePage = () => {
     const [gender, setGender] = useState(genderValues[0].value)
 
+    const queryClient = useQueryClient()
+    useEffect(() => {
+        genderValues.forEach(({ value }) => queryClient.prefetchQuery([`clothes ${value}`], () => getClothes(value)))
+    }, [])
 
     return (
         <Stack

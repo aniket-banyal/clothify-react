@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../../api";
 
-const getClothes = async (gender) => {
+export const getClothes = async (gender) => {
     const searchParams = new URLSearchParams({ gender })
     const { data } = await api.get(
-        "/clothes",
+        "/clothes/",
         { params: searchParams }
     )
     return data
