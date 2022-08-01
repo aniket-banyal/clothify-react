@@ -8,12 +8,14 @@ import Checkbox from '@mui/material/Checkbox';
 import { useState } from "react";
 import { useSelectedFilters } from '../hooks/useSelectedFilters'
 import CustomScrollbar from "./CustomScrollbar";
-
+import { useSearchParams } from 'react-router-dom'
 
 const height = 300
 
 const CategoryFilter = () => {
-    const { data: categories } = useCategories()
+    const [searchParams] = useSearchParams()
+    const gender = searchParams.get('gender')
+    const { data: categories } = useCategories(gender)
 
     const initialState = {}
     categories.forEach(category => initialState[category.id] = false)

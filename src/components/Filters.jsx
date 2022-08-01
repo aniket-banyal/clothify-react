@@ -4,7 +4,7 @@ import ColorFilter from "./ColorFilter";
 import SizeFilter from "./SizeFilter";
 
 
-const filters = [<ColorFilter />, <SizeFilter />, <CategoryFilter />,]
+const filters = [<CategoryFilter />, <ColorFilter />, <SizeFilter />,]
 
 const Filters = () => {
     return (

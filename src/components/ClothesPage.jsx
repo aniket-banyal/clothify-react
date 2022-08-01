@@ -5,6 +5,7 @@ import Filters from './Filters';
 import { FiltersContext } from '../context/FiltersContext'
 import { Suspense, useState } from 'react';
 import CenteredCircularProgress from './CenteredCircularProgress'
+import { useSearchParams } from 'react-router-dom'
 
 
 let suspense = false
@@ -13,10 +14,14 @@ const ClothesPage = () => {
     const [selectedSizes, setSelectedSizes] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
 
+    const [searchParams] = useSearchParams()
+    const gender = searchParams.get('gender')
+
     const { data: clothes, isLoading } = useClothes({
+        gender,
         colors: selectedColors,
         sizes: selectedSizes,
-        categories: selectedCategories
+        categories: selectedCategories,
     }, suspense)
 
 

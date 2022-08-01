@@ -25,8 +25,12 @@ HideOnScroll.propTypes = {
 
 const pages = [
     {
-        name: 'Explore',
-        link: 'clothes'
+        name: 'Men',
+        link: 'clothes?gender=M'
+    },
+    {
+        name: 'Women',
+        link: 'clothes?gender=W'
     },
 ]
 
@@ -51,7 +55,7 @@ const Navbar = () => {
                                     component={RouterLink}
                                     to={page.link}
                                     key={page.name}
-                                    sx={{ my: 2, mx: 2, color: 'white', display: 'block' }}
+                                    sx={{ my: 2, mx: 2, color: 'white' }}
                                 >
                                     {page.name}
                                 </Button>
