@@ -1,12 +1,16 @@
 import { Divider, Grid } from "@mui/material";
 import ColorFilter from "./ColorFilter";
+import SizeFilter from "./SizeFilter";
+
+
+const filters = [<ColorFilter />, <SizeFilter />,]
 
 const Filters = () => {
     return (
         <Grid
             container
             direction='column'
-            spacing={2}
+            rowSpacing={1}
             sx={{
                 bgcolor: 'grey.900',
                 borderRadius: 2,
@@ -14,11 +18,12 @@ const Filters = () => {
                 pr: 2,
             }}
         >
-            <Grid item>
-                <ColorFilter />
-            </Grid>
-
-            <Divider variant='middle' />
+            {filters.map((filter, idx) =>
+                <Grid item key={idx}>
+                    {filter}
+                    <Divider variant='middle' />
+                </Grid>
+            )}
         </Grid>
     );
 }

@@ -28,7 +28,7 @@ const HomePage = () => {
 
     const queryClient = useQueryClient()
     useEffect(() => {
-        genderValues.forEach(({ value }) => queryClient.prefetchQuery([`clothes ${value}`], () => getClothes(value)))
+        genderValues.forEach(({ value }) => queryClient.prefetchQuery([`clothes ${value}`], () => getClothes({ gender: value })))
     }, [])
 
     return (

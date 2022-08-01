@@ -1,25 +1,25 @@
 import { Box } from "@mui/material";
-import useColors from "../hooks/api/useColors";
+import useSizes from "../hooks/api/useSizes";
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useState } from "react";
-import { useSelectedFilters } from '../hooks/useSelectedFilters'
 import CustomScrollbar from "./CustomScrollbar";
+import { useSelectedFilters } from "../hooks/useSelectedFilters";
 
 
-const height = 300
+const height = 250
 
-const ColorFilter = () => {
-    const { data: colors } = useColors()
+const SizeFilter = () => {
+    const { data: sizes } = useSizes()
 
     const initialState = {}
-    colors.forEach(color => initialState[color] = false)
+    sizes.forEach(size => initialState[size] = false)
     const [state, setState] = useState(initialState)
 
-    const { selectedColors, setSelectedColors } = useSelectedFilters()
+    const { selectedSizes, setSelectedSizes } = useSelectedFilters()
 
     const handleChange = (event) => {
         setState({
@@ -28,9 +28,9 @@ const ColorFilter = () => {
         })
 
         if (event.target.checked)
-            setSelectedColors([...selectedColors, event.target.name])
+            setSelectedSizes([...selectedSizes, event.target.name])
         else
-            setSelectedColors(selectedColors.filter(color => color !== event.target.name))
+            setSelectedSizes(selectedSizes.filter(size => size !== event.target.name))
     }
 
 
@@ -42,13 +42,13 @@ const ColorFilter = () => {
                     display: 'flex',
                 }}>
                 <FormControl component="fieldset" variant="standard">
-                    <FormLabel component="legend">Color</FormLabel>
+                    <FormLabel component="legend">Size</FormLabel>
                     <FormGroup>
-                        {colors.map(color =>
+                        {sizes.map(size =>
                             <FormControlLabel
-                                key={color}
-                                control={<Checkbox sx={{ color: color }} checked={state.color} onChange={handleChange} name={color} />}
-                                label={color}
+                                key={size}
+                                control={<Checkbox sx={{ size: size }} checked={state.size} onChange={handleChange} name={size} />}
+                                label={size}
                             />
                         )}
                     </FormGroup>
@@ -58,4 +58,4 @@ const ColorFilter = () => {
     );
 }
 
-export default ColorFilter;
+export default SizeFilter;

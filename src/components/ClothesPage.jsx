@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import useClothes from '../hooks/api/useClothes'
 import ClothesGrid from "./ClothesGrid";
 import Filters from './Filters';
-import { ColorContext } from '../context/ColorContext'
+import { FiltersContext } from '../context/FiltersContext'
 import { Suspense, useState } from 'react';
 import CenteredCircularProgress from './CenteredCircularProgress'
 
@@ -10,11 +10,12 @@ import CenteredCircularProgress from './CenteredCircularProgress'
 let suspense = false
 const ClothesPage = () => {
     const [selectedColors, setSelectedColors] = useState([])
-    const { data: clothes, isLoading } = useClothes({ colors: selectedColors }, suspense)
+    const [selectedSizes, setSelectedSizes] = useState([])
+    const { data: clothes, isLoading } = useClothes({ colors: selectedColors, sizes: selectedSizes }, suspense)
 
 
     return (
-        <ColorContext.Provider value={{ selectedColors, setSelectedColors }}>
+        <FiltersContext.Provider value={{ selectedColors, setSelectedColors, selectedSizes, setSelectedSizes }}>
             <Grid
                 container
                 spacing={4}
@@ -37,7 +38,7 @@ const ClothesPage = () => {
                     </Suspense>
                 </Grid>
             </Grid>
-        </ColorContext.Provider>
+        </FiltersContext.Provider>
     );
 }
 
