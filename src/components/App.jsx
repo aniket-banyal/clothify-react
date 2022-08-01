@@ -42,9 +42,7 @@ function App() {
                 <Route index element={<HomePage />} />
                 <Route path="clothes" element={
                   <ErrorBoundary FallbackComponent={ErrorFallback}>
-                    <Suspense fallback={<CenteredCircularProgress />}>
-                      <ClothesPage />
-                    </Suspense>
+                    <ClothesPage />
                   </ErrorBoundary>
                 }
                 />

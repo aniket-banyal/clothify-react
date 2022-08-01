@@ -15,6 +15,10 @@ export const getClothes = async ({ gender, colors }) => {
     return data
 }
 
-export default function useClothes({ gender, colors }) {
-    return useQuery([`clothes ${gender} ${colors}`], () => getClothes({ gender, colors }))
+export default function useClothes({ gender, colors }, suspense = true) {
+    return useQuery(
+        [`clothes ${gender} ${colors}`],
+        () => getClothes({ gender, colors }),
+        { suspense }
+    )
 }

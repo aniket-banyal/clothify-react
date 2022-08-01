@@ -3,11 +3,15 @@ import useClothes from '../hooks/api/useClothes'
 import ClothesGrid from "./ClothesGrid";
 import Filters from './Filters';
 import { ColorContext } from '../context/ColorContext'
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import CenteredCircularProgress from './CenteredCircularProgress'
 
+
+let suspense = false
 const ClothesPage = () => {
     const [selectedColors, setSelectedColors] = useState([])
-    const { data: clothes } = useClothes({ colors: selectedColors })
+    const { data: clothes, isLoading } = useClothes({ colors: selectedColors }, suspense)
+
 
     return (
         <ColorContext.Provider value={{ selectedColors, setSelectedColors }}>
@@ -17,15 +21,20 @@ const ClothesPage = () => {
                 sx={{ mt: 2 }}
             >
                 <Grid item xs={12} sm={8} md={9}>
-                    {clothes.length > 0 ?
-                        <ClothesGrid clothes={clothes} />
+                    {isLoading ?
+                        <CenteredCircularProgress />
                         :
-                        <Typography variant='h6'> No such clothes found </Typography>
+                        clothes.length > 0 ?
+                            <ClothesGrid clothes={clothes} />
+                            :
+                            <Typography variant='h6'> No such clothes found </Typography>
                     }
                 </Grid>
 
                 <Grid item xs={0} sm={4} md={3}>
-                    <Filters />
+                    <Suspense fallback={<></>}>
+                        <Filters />
+                    </Suspense>
                 </Grid>
             </Grid>
         </ColorContext.Provider>
