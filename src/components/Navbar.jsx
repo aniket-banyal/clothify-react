@@ -38,32 +38,32 @@ const pages = [
 const Navbar = () => {
     return (
         <>
-            <HideOnScroll>
-                <AppBar>
-                    <Toolbar>
-                        <Typography
-                            variant="h6"
-                            component="div"
-                            sx={{ flexGrow: 1 }}
-                        >
-                            Clothify
-                        </Typography>
+            {/* <HideOnScroll> */}
+            <AppBar>
+                <Toolbar>
+                    <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ flexGrow: 1 }}
+                    >
+                        Clothify
+                    </Typography>
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page) => (
-                                <Button
-                                    component={RouterLink}
-                                    to={page.link}
-                                    key={page.name}
-                                    sx={{ my: 2, mx: 2, color: 'white' }}
-                                >
-                                    {page.name}
-                                </Button>
-                            ))}
-                        </Box>
-                    </Toolbar>
-                </AppBar>
-            </HideOnScroll>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        {pages.map((page) => (
+                            <Button
+                                component={RouterLink}
+                                to={page.link}
+                                key={page.name}
+                                sx={{ my: 2, mx: 2, color: 'white' }}
+                            >
+                                {page.name}
+                            </Button>
+                        ))}
+                    </Box>
+                </Toolbar>
+            </AppBar>
+            {/* </HideOnScroll> */}
             <Toolbar sx={{ mb: 2 }} />
         </>
     )
