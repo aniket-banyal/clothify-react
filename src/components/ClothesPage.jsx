@@ -34,10 +34,10 @@ const ClothesPage = () => {
             }}>
             <Grid
                 container
-                spacing={4}
+                spacing={2}
                 sx={{ mt: 2 }}
             >
-                <Grid item xs={12} sm={8} md={9}>
+                <Grid item xs={8} sm={8} md={9}>
                     {isLoading ?
                         <CenteredCircularProgress />
                         :
@@ -48,7 +48,7 @@ const ClothesPage = () => {
                     }
                 </Grid>
 
-                <Grid item xs={0} sm={4} md={3}>
+                <Grid item xs={4} sm={4} md={3}>
                     <Suspense fallback={<></>}>
                         <Filters />
                     </Suspense>

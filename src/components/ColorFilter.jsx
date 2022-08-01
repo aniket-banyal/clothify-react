@@ -1,6 +1,5 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import useColors from "../hooks/api/useColors";
-import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -8,6 +7,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { useState } from "react";
 import { useSelectedFilters } from '../hooks/useSelectedFilters'
 import CustomScrollbar from "./CustomScrollbar";
+import Collapsible from "./Collapsible";
 
 
 const height = 300
@@ -35,26 +35,33 @@ const ColorFilter = () => {
 
 
     return (
-        <CustomScrollbar height={height}>
-            <Box
-                sx={{
-                    p: 2,
-                    display: 'flex',
-                }}>
-                <FormControl component="fieldset" variant="standard">
-                    <FormLabel component="legend">Color</FormLabel>
-                    <FormGroup>
-                        {colors.map(color =>
-                            <FormControlLabel
-                                key={color}
-                                control={<Checkbox sx={{ color: color }} checked={state.color} onChange={handleChange} name={color} />}
-                                label={color}
-                            />
-                        )}
-                    </FormGroup>
-                </FormControl>
-            </Box>
-        </CustomScrollbar>
+        <Collapsible title={'Color'}>
+            <CustomScrollbar height={height}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                    }}>
+                    <FormControl component="fieldset" variant="standard">
+                        <FormGroup>
+                            {colors.map(color =>
+                                <FormControlLabel
+                                    key={color}
+                                    label={<Typography variant="body2" color="text.secondary">{color}</Typography>}
+                                    control={
+                                        <Checkbox
+                                            sx={{ color: color }}
+                                            checked={state.color}
+                                            onChange={handleChange}
+                                            name={color}
+                                        />
+                                    }
+                                />
+                            )}
+                        </FormGroup>
+                    </FormControl>
+                </Box>
+            </CustomScrollbar>
+        </Collapsible>
     );
 }
 

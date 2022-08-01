@@ -1,6 +1,5 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import useSizes from "../hooks/api/useSizes";
-import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -8,6 +7,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { useState } from "react";
 import CustomScrollbar from "./CustomScrollbar";
 import { useSelectedFilters } from "../hooks/useSelectedFilters";
+import Collapsible from "./Collapsible";
 
 
 const height = 250
@@ -35,26 +35,32 @@ const SizeFilter = () => {
 
 
     return (
-        <CustomScrollbar height={height}>
-            <Box
-                sx={{
-                    p: 2,
-                    display: 'flex',
-                }}>
-                <FormControl component="fieldset" variant="standard">
-                    <FormLabel component="legend">Size</FormLabel>
-                    <FormGroup>
-                        {sizes.map(size =>
-                            <FormControlLabel
-                                key={size}
-                                control={<Checkbox checked={state.size} onChange={handleChange} name={size} />}
-                                label={size}
-                            />
-                        )}
-                    </FormGroup>
-                </FormControl>
-            </Box>
-        </CustomScrollbar>
+        <Collapsible title={'Size'}>
+            <CustomScrollbar height={height}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                    }}>
+                    <FormControl component="fieldset" variant="standard">
+                        <FormGroup>
+                            {sizes.map(size =>
+                                <FormControlLabel
+                                    key={size}
+                                    label={<Typography variant="body2" color="text.secondary">{size}</Typography>}
+                                    control={
+                                        <Checkbox
+                                            checked={state.size}
+                                            onChange={handleChange}
+                                            name={size}
+                                        />
+                                    }
+                                />
+                            )}
+                        </FormGroup>
+                    </FormControl>
+                </Box>
+            </CustomScrollbar>
+        </Collapsible>
     );
 }
 
