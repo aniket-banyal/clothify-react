@@ -9,6 +9,7 @@ import { GenderContext } from '../context/GenderContext'
 import { useQueryClient } from "@tanstack/react-query";
 import { getClothes } from "../hooks/api/useClothes";
 import ErrorFallback from './ErrorFallback'
+import { Container } from "@mui/system";
 
 
 const genderValues = [
@@ -32,21 +33,23 @@ const HomePage = () => {
     }, [])
 
     return (
-        <Stack
-            spacing={2}
-            alignItems='center'
-        >
-            <HomePageBanner />
+        <Container>
+            <Stack
+                spacing={2}
+                alignItems='center'
+            >
+                <HomePageBanner />
 
-            <GenderContext.Provider value={{ genderValues, gender, setGender }}>
-                <ErrorBoundary FallbackComponent={ErrorFallback}>
-                    <Suspense fallback={<CenteredCircularProgress />}>
-                        <Categories />
-                        <ClothesList />
-                    </Suspense>
-                </ErrorBoundary>
-            </GenderContext.Provider>
-        </Stack>
+                <GenderContext.Provider value={{ genderValues, gender, setGender }}>
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <Suspense fallback={<CenteredCircularProgress />}>
+                            <Categories />
+                            <ClothesList />
+                        </Suspense>
+                    </ErrorBoundary>
+                </GenderContext.Provider>
+            </Stack>
+        </Container>
     );
 }
 

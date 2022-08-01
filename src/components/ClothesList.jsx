@@ -9,7 +9,11 @@ const ClothesList = () => {
 
 
     return (
-        <ClothesGrid clothes={clothes} />
+        <ClothesGrid
+            clothes={clothes}
+            width={180}
+            height={120}
+        />
     );
 }
 

@@ -4,19 +4,20 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Stack } from '@mui/material';
 
-const Cloth = ({ cloth }) => {
+
+const Cloth = ({ cloth, width = 220, height = 200, maxWidth = 345 }) => {
     return (
         <Card
             sx={{
-                width: 180,
-                maxWidth: 345,
-                borderRadius: 0
+                width,
+                maxWidth,
+                borderRadius: 2
             }}
         >
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    height="120"
+                    height={height}
                     image={cloth.cover_img_url}
                     alt={cloth.name}
                     sx={{

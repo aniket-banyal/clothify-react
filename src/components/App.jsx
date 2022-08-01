@@ -31,7 +31,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <Container>
+        <Container maxWidth={'xl'}>
           <CssBaseline />
 
 

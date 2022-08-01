@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import Cloth from "./Cloth";
 
-const ClothesGrid = ({ clothes }) => {
+const ClothesGrid = ({ clothes, width, height, maxWidth }) => {
     return (
         <Grid
             container
@@ -9,7 +9,12 @@ const ClothesGrid = ({ clothes }) => {
         >
             {clothes.map(cloth =>
                 <Grid item key={cloth.id}>
-                    <Cloth cloth={cloth} />
+                    <Cloth
+                        cloth={cloth}
+                        width={width}
+                        height={height}
+                        maxWidth={maxWidth}
+                    />
                 </Grid>
             )}
         </Grid>
