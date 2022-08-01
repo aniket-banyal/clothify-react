@@ -11,11 +11,22 @@ let suspense = false
 const ClothesPage = () => {
     const [selectedColors, setSelectedColors] = useState([])
     const [selectedSizes, setSelectedSizes] = useState([])
-    const { data: clothes, isLoading } = useClothes({ colors: selectedColors, sizes: selectedSizes }, suspense)
+    const [selectedCategories, setSelectedCategories] = useState([])
+
+    const { data: clothes, isLoading } = useClothes({
+        colors: selectedColors,
+        sizes: selectedSizes,
+        categories: selectedCategories
+    }, suspense)
 
 
     return (
-        <FiltersContext.Provider value={{ selectedColors, setSelectedColors, selectedSizes, setSelectedSizes }}>
+        <FiltersContext.Provider
+            value={{
+                selectedColors, setSelectedColors,
+                selectedSizes, setSelectedSizes,
+                selectedCategories, setSelectedCategories,
+            }}>
             <Grid
                 container
                 spacing={4}

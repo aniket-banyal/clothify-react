@@ -1,36 +1,36 @@
 import { Box } from "@mui/material";
-import useSizes from "../hooks/api/useSizes";
+import useCategories from "../hooks/api/useCategories";
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useState } from "react";
+import { useSelectedFilters } from '../hooks/useSelectedFilters'
 import CustomScrollbar from "./CustomScrollbar";
-import { useSelectedFilters } from "../hooks/useSelectedFilters";
 
 
-const height = 250
+const height = 300
 
-const SizeFilter = () => {
-    const { data: sizes } = useSizes()
+const CategoryFilter = () => {
+    const { data: categories } = useCategories()
 
     const initialState = {}
-    sizes.forEach(size => initialState[size] = false)
+    categories.forEach(category => initialState[category.id] = false)
     const [state, setState] = useState(initialState)
 
-    const { selectedSizes, setSelectedSizes } = useSelectedFilters()
+    const { selectedCategories, setSelectedCategories } = useSelectedFilters()
 
     const handleChange = (event) => {
         setState({
             ...state,
-            [event.target.name]: event.target.checked,
+            [event.target.value]: event.target.checked,
         })
 
         if (event.target.checked)
-            setSelectedSizes([...selectedSizes, event.target.name])
+            setSelectedCategories([...selectedCategories, event.target.value])
         else
-            setSelectedSizes(selectedSizes.filter(size => size !== event.target.name))
+            setSelectedCategories(selectedCategories.filter(category => category !== event.target.value))
     }
 
 
@@ -42,13 +42,13 @@ const SizeFilter = () => {
                     display: 'flex',
                 }}>
                 <FormControl component="fieldset" variant="standard">
-                    <FormLabel component="legend">Size</FormLabel>
+                    <FormLabel component="legend">Category</FormLabel>
                     <FormGroup>
-                        {sizes.map(size =>
+                        {categories.map(category =>
                             <FormControlLabel
-                                key={size}
-                                control={<Checkbox checked={state.size} onChange={handleChange} name={size} />}
-                                label={size}
+                                key={category.id}
+                                control={<Checkbox checked={state.category} onChange={handleChange} value={category.id} />}
+                                label={`${category.name} (${category.gender})`}
                             />
                         )}
                     </FormGroup>
@@ -58,4 +58,4 @@ const SizeFilter = () => {
     );
 }
 
-export default SizeFilter;
+export default CategoryFilter;
