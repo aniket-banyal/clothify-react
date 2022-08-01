@@ -10,9 +10,7 @@ import { useSelectedFilters } from "../hooks/useSelectedFilters";
 import Collapsible from "./Collapsible";
 
 
-const height = 250
-
-const SizeFilter = () => {
+const SizeFilter = ({ expanded, toggleExpanded, height }) => {
     const { data: sizes } = useSizes()
 
     const initialState = {}
@@ -35,7 +33,11 @@ const SizeFilter = () => {
 
 
     return (
-        <Collapsible title={'Size'}>
+        <Collapsible
+            title={'Size'}
+            expanded={expanded}
+            toggleExpanded={toggleExpanded}
+        >
             <CustomScrollbar height={height}>
                 <Box
                     sx={{

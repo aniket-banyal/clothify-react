@@ -11,10 +11,7 @@ import { useSearchParams } from 'react-router-dom'
 import Collapsible from "./Collapsible";
 
 
-const height = 300
-
-
-const CategoryFilter = () => {
+const CategoryFilter = ({ expanded, toggleExpanded, height }) => {
     const [searchParams] = useSearchParams()
     const gender = searchParams.get('gender')
     const { data: categories } = useCategories(gender)
@@ -39,7 +36,11 @@ const CategoryFilter = () => {
 
 
     return (
-        <Collapsible title={'Category'}>
+        <Collapsible
+            title={'Category'}
+            expanded={expanded}
+            toggleExpanded={toggleExpanded}
+        >
             <CustomScrollbar height={height}>
                 <Box
                     sx={{

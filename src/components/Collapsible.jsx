@@ -16,8 +16,7 @@ const ExpandMore = styled((props) => {
 }));
 
 
-const Collapsible = ({ title, children }) => {
-    const [expanded, setExpanded] = useState(false)
+const Collapsible = ({ title, children, expanded, toggleExpanded }) => {
 
     return (
         <>
@@ -27,7 +26,7 @@ const Collapsible = ({ title, children }) => {
                 </Typography>
                 <ExpandMore
                     expand={expanded ? 1 : 0}
-                    onClick={() => setExpanded(!expanded)}
+                    onClick={toggleExpanded}
                 >
                     <ExpandMoreIcon />
                 </ExpandMore>

@@ -10,9 +10,7 @@ import CustomScrollbar from "./CustomScrollbar";
 import Collapsible from "./Collapsible";
 
 
-const height = 300
-
-const ColorFilter = () => {
+const ColorFilter = ({ expanded, toggleExpanded, height }) => {
     const { data: colors } = useColors()
 
     const initialState = {}
@@ -35,7 +33,11 @@ const ColorFilter = () => {
 
 
     return (
-        <Collapsible title={'Color'}>
+        <Collapsible
+            title={'Color'}
+            expanded={expanded}
+            toggleExpanded={toggleExpanded}
+        >
             <CustomScrollbar height={height}>
                 <Box
                     sx={{
