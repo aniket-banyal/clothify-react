@@ -1,11 +1,8 @@
-import { Box, Divider, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import CategoryFilter from "./CategoryFilter";
 import ColorFilter from "./ColorFilter";
 import SizeFilter from "./SizeFilter";
 import { useState } from "react";
-import SelectedFilters from "./SelectedFilters";
-import { useSelectedFilters } from "../hooks/useSelectedFilters";
-import { AnimatePresence, motion } from "framer-motion";
 import Collapsible from "./Collapsible";
 import CustomScrollbar from "./CustomScrollbar";
 
@@ -22,8 +19,6 @@ const height = 300
 const Filters = () => {
     const [expandedName, setExpandedName] = useState('')
 
-    const { selectedColors, selectedSizes, selectedCategories } = useSelectedFilters()
-
     return (
         <Grid
             container
@@ -35,8 +30,6 @@ const Filters = () => {
                 borderRadius: 2,
                 px: 1,
                 py: 2,
-                position: 'sticky',
-                top: 100,
             }}
         >
             {filters.map((filter, idx) =>
@@ -59,26 +52,6 @@ const Filters = () => {
                     </Collapsible>
                 </Grid>
             )}
-
-            <AnimatePresence>
-                {
-                    (selectedCategories.length > 0 || selectedColors.length > 0 || selectedSizes.length > 0) &&
-                    <Grid item>
-                        <Divider
-                            sx={{ mb: 1 }}
-                            component={motion.hr}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                        />
-                    </Grid>
-                }
-            </AnimatePresence>
-
-            <Grid item>
-                <SelectedFilters />
-            </Grid>
         </Grid>
     );
 }

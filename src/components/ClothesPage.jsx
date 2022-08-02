@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 import useClothes from '../hooks/api/useClothes'
 import ClothesGrid from "./ClothesGrid";
 import Filters from './Filters';
@@ -7,6 +7,7 @@ import { Suspense, useState } from 'react';
 import CenteredCircularProgress from './CenteredCircularProgress'
 import { useSearchParams } from 'react-router-dom'
 import { Box } from '@mui/system';
+import SelectedFilters from './SelectedFilters';
 
 
 let suspense = false
@@ -51,9 +52,21 @@ const ClothesPage = () => {
                     </Grid>
 
                     <Grid item xs={4} sm={4} md={3}>
-                        <Suspense fallback={<></>}>
-                            <Filters />
-                        </Suspense>
+                        <Stack
+                            direction='column'
+                            spacing={2}
+                            alignItems={'flex-end'}
+                            sx={{
+                                position: 'sticky',
+                                top: 100,
+                            }}
+                        >
+                            <Suspense fallback={<></>}>
+                                <Filters />
+                            </Suspense>
+
+                            <SelectedFilters />
+                        </Stack>
                     </Grid>
                 </Grid>
             </FiltersContext.Provider>

@@ -23,102 +23,117 @@ const SelectedFilters = () => {
     }
 
     return (
-        <Grid container spacing={2}>
-            <AnimatePresence>
-                {selectedCategories.map(id => {
-                    const category = categories.find(category => category.id === id)
+        <>
+            {
+                (selectedCategories.length > 0 || selectedColors.length > 0 || selectedSizes.length > 0) &&
+                <Grid
+                    container
+                    columnSpacing={2}
+                    rowGap={1}
+                    sx={{
+                        bgcolor: 'grey.900',
+                        borderRadius: 2,
+                        px: 1,
+                        py: 2,
+                    }}
+                >
+                    <AnimatePresence>
+                        {selectedCategories.map(id => {
+                            const category = categories.find(category => category.id === id)
 
-                    return (
-                        <Grid
-                            item
-                            key={id}
-                            component={motion.div}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2, }}
-                        >
-                            <Stack
-                                direction='row'
-                                alignItems={'center'}
-                                sx={{
-                                    px: 1.5,
-                                    py: 0.1,
-                                    border: 1,
-                                    borderRadius: 5,
-                                    borderColor: 'grey.600',
-                                    transition: "border 0.2s",
-                                    ":hover": {
-                                        borderColor: 'grey.400',
-                                    },
-                                }}
-                            >
-                                <Typography variant="body2">
-                                    {gender ? category.name : `${category.name} (${category.gender})`}
-                                </Typography>
-
-                                <IconButton
-                                    disableRipple
-                                    size="small"
-                                    color="inherit"
-                                    edge='end'
-                                    onClick={() => handleCategoryChange(id)}
+                            return (
+                                <Grid
+                                    item
+                                    key={id}
+                                    component={motion.div}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.2, }}
                                 >
-                                    <ClearIcon
-                                        fontSize='16px'
-                                    />
-                                </IconButton>
-                            </Stack>
-                        </Grid>
-                    )
-                }
-                )}
+                                    <Stack
+                                        direction='row'
+                                        alignItems={'center'}
+                                        sx={{
+                                            px: 1.5,
+                                            py: 0.1,
+                                            border: 1,
+                                            borderRadius: 5,
+                                            borderColor: 'grey.600',
+                                            transition: "border 0.2s",
+                                            ":hover": {
+                                                borderColor: 'grey.400',
+                                            },
+                                        }}
+                                    >
+                                        <Typography variant="body2">
+                                            {gender ? category.name : `${category.name} (${category.gender})`}
+                                        </Typography>
 
-                {selectedColors.map(color =>
-                    <Grid
-                        item
-                        key={color}
-                        component={motion.div}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2, }}
-                    >
-                        <Stack
-                            direction='row'
-                            alignItems={'center'}
-                            sx={{
-                                px: 1.5,
-                                py: 0.1,
-                                border: 1,
-                                borderRadius: 5,
-                                borderColor: 'grey.600',
-                                transition: "border 0.2s",
-                                ":hover": {
-                                    borderColor: 'grey.400',
-                                },
-                            }}
-                        >
-                            <Typography variant="body2">
-                                {color}
-                            </Typography>
+                                        <IconButton
+                                            disableRipple
+                                            size="small"
+                                            color="inherit"
+                                            edge='end'
+                                            onClick={() => handleCategoryChange(id)}
+                                        >
+                                            <ClearIcon
+                                                fontSize='16px'
+                                            />
+                                        </IconButton>
+                                    </Stack>
+                                </Grid>
+                            )
+                        }
+                        )}
 
-                            <IconButton
-                                disableRipple
-                                size="small"
-                                color="inherit"
-                                edge='end'
-                                onClick={() => handleColorChange(color)}
+                        {selectedColors.map(color =>
+                            <Grid
+                                item
+                                key={color}
+                                component={motion.div}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.2, }}
                             >
-                                <ClearIcon
-                                    fontSize='16px'
-                                />
-                            </IconButton>
-                        </Stack>
-                    </Grid>
-                )}
-            </AnimatePresence>
-        </Grid >
+                                <Stack
+                                    direction='row'
+                                    alignItems={'center'}
+                                    sx={{
+                                        px: 1.5,
+                                        py: 0.1,
+                                        border: 1,
+                                        borderRadius: 5,
+                                        borderColor: 'grey.600',
+                                        transition: "border 0.2s",
+                                        ":hover": {
+                                            borderColor: 'grey.400',
+                                        },
+                                    }}
+                                >
+                                    <Typography variant="body2">
+                                        {color}
+                                    </Typography>
+
+                                    <IconButton
+                                        disableRipple
+                                        size="small"
+                                        color="inherit"
+                                        edge='end'
+                                        onClick={() => handleColorChange(color)}
+                                    >
+                                        <ClearIcon
+                                            fontSize='16px'
+                                        />
+                                    </IconButton>
+                                </Stack>
+                            </Grid>
+                        )}
+                    </AnimatePresence>
+                </Grid>
+            }
+        </>
     );
 }
 
