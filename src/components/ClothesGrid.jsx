@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import Cloth from "./Cloth";
 
+
 const ClothesGrid = ({ clothes, width, height, maxWidth }) => {
     return (
         <Grid

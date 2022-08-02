@@ -21,6 +21,10 @@ export const getClothes = async ({ gender, colors, sizes, categories }) => {
 
 export default function useClothes({ gender, colors, sizes, categories }, suspense = true) {
 
+    // Creating copy so that original array doesn't get modified, which causes UI issue in SelectedFilters
+    colors = colors.slice()
+    sizes = sizes.slice()
+    categories = categories.slice()
     // Sorting so that queryKey remains same even if order of colors and sort changes
     colors?.sort()
     sizes?.sort()
