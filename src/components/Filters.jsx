@@ -7,6 +7,8 @@ import SelectedFilters from "./SelectedFilters";
 import { useSelectedFilters } from "../hooks/useSelectedFilters";
 import { AnimatePresence, motion } from "framer-motion";
 import Collapsible from "./Collapsible";
+import CustomScrollbar from "./CustomScrollbar";
+
 
 const filters = [
     { name: 'Category', component: CategoryFilter },
@@ -49,9 +51,11 @@ const Filters = () => {
                                 () => setExpandedName(filter.name)
                         }
                     >
-                        <filter.component
-                            height={height}
-                        />
+                        <CustomScrollbar height={height}>
+                            <filter.component
+                                height={height}
+                            />
+                        </CustomScrollbar>
                     </Collapsible>
                 </Grid>
             )}

@@ -5,11 +5,10 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useSelectedFilters } from '../hooks/useSelectedFilters'
-import CustomScrollbar from "./CustomScrollbar";
 import { useSearchParams } from 'react-router-dom'
 
 
-const CategoryFilter = ({ height }) => {
+const CategoryFilter = () => {
     const [searchParams] = useSearchParams()
     const gender = searchParams.get('gender')
     const { data: categories } = useCategories(gender)
@@ -26,34 +25,32 @@ const CategoryFilter = ({ height }) => {
 
 
     return (
-        <CustomScrollbar height={height}>
-            <Box
-                sx={{
-                    display: 'flex',
-                }}>
-                <FormControl component="fieldset" variant="standard">
-                    <FormGroup>
-                        {categories.map(category =>
-                            <FormControlLabel
-                                key={category.id}
-                                label={
-                                    <Typography variant="body2" color="text.secondary">
-                                        {gender ? category.name : `${category.name} (${category.gender})`}
-                                    </Typography>
-                                }
-                                control={
-                                    <Checkbox
-                                        checked={selectedCategories.includes(category.id)}
-                                        onChange={handleChange}
-                                        value={category.id}
-                                    />
-                                }
-                            />
-                        )}
-                    </FormGroup>
-                </FormControl>
-            </Box>
-        </CustomScrollbar>
+        <Box
+            sx={{
+                display: 'flex',
+            }}>
+            <FormControl component="fieldset" variant="standard">
+                <FormGroup>
+                    {categories.map(category =>
+                        <FormControlLabel
+                            key={category.id}
+                            label={
+                                <Typography variant="body2" color="text.secondary">
+                                    {gender ? category.name : `${category.name} (${category.gender})`}
+                                </Typography>
+                            }
+                            control={
+                                <Checkbox
+                                    checked={selectedCategories.includes(category.id)}
+                                    onChange={handleChange}
+                                    value={category.id}
+                                />
+                            }
+                        />
+                    )}
+                </FormGroup>
+            </FormControl>
+        </Box>
     );
 }
 
