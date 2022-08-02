@@ -7,7 +7,9 @@ import useCategories from "../hooks/api/useCategories";
 
 
 const SelectedFilters = () => {
-    const { selectedCategories, setSelectedCategories, selectedColors, setSelectedColors, selectedSizes, } = useSelectedFilters()
+    const { selectedCategories, setSelectedCategories,
+        selectedColors, setSelectedColors,
+        selectedSizes, setSelectedSizes } = useSelectedFilters()
 
     const [searchParams] = useSearchParams()
     const gender = searchParams.get('gender')
@@ -20,6 +22,10 @@ const SelectedFilters = () => {
 
     const handleCategoryChange = (clearedCategory) => {
         setSelectedCategories(selectedCategories.filter(category => category !== clearedCategory))
+    }
+
+    const handleSizeChange = (clearedSize) => {
+        setSelectedSizes(selectedSizes.filter(size => size !== clearedSize))
     }
 
     return (
@@ -122,6 +128,50 @@ const SelectedFilters = () => {
                                         color="inherit"
                                         edge='end'
                                         onClick={() => handleColorChange(color)}
+                                    >
+                                        <ClearIcon
+                                            fontSize='16px'
+                                        />
+                                    </IconButton>
+                                </Stack>
+                            </Grid>
+                        )}
+
+                        {selectedSizes.map(size =>
+                            <Grid
+                                item
+                                key={size}
+                                component={motion.div}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.2, }}
+                            >
+                                <Stack
+                                    direction='row'
+                                    alignItems={'center'}
+                                    sx={{
+                                        px: 1.5,
+                                        py: 0.1,
+                                        border: 1,
+                                        borderRadius: 5,
+                                        borderColor: 'grey.600',
+                                        transition: "border 0.2s",
+                                        ":hover": {
+                                            borderColor: 'grey.400',
+                                        },
+                                    }}
+                                >
+                                    <Typography variant="body2">
+                                        {size}
+                                    </Typography>
+
+                                    <IconButton
+                                        disableRipple
+                                        size="small"
+                                        color="inherit"
+                                        edge='end'
+                                        onClick={() => handleSizeChange(size)}
                                     >
                                         <ClearIcon
                                             fontSize='16px'
