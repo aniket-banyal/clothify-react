@@ -14,22 +14,21 @@ const filters = [
 
 ]
 
-const height = 300
+const height = 250
 
 const Filters = () => {
     const [expandedName, setExpandedName] = useState('')
-
     return (
         <Grid
             container
             direction='column'
-            columnSpacing={2}
+            columnGap={2}
             rowGap={1}
             sx={{
                 bgcolor: 'grey.900',
                 borderRadius: 2,
-                px: 1,
-                py: 2,
+                px: 3,
+                py: 1,
             }}
         >
             {filters.map((filter, idx) =>

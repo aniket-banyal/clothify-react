@@ -28,7 +28,10 @@ const ClothesPage = () => {
 
 
     return (
-        <Box sx={{ my: 6, mx: 2 }}>
+        <Box sx={{
+            my: 6,
+            mx: 2,
+        }}>
             <FiltersContext.Provider
                 value={{
                     selectedColors, setSelectedColors,
@@ -55,7 +58,6 @@ const ClothesPage = () => {
                         <Stack
                             direction='column'
                             spacing={2}
-                            alignItems={'flex-end'}
                             sx={{
                                 position: 'sticky',
                                 top: 100,
