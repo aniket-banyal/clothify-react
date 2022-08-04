@@ -14,9 +14,9 @@ const SelectedFilter = ({ name, value, handleValueChange }) => {
                 border: 1,
                 borderRadius: 5,
                 borderColor: 'grey.600',
-                transition: "border 0.2s",
+                transition: "border 0.18s",
                 ":hover": {
-                    borderColor: 'grey.400',
+                    borderColor: 'grey.300',
                 },
             }}
         >

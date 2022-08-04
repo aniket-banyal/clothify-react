@@ -10,7 +10,7 @@ import CustomScrollbar from "./CustomScrollbar";
 
 const paddingY = 2
 const height = 180
-const trasitionDuration = 0.2
+const trasitionDuration = 0.16
 
 
 const AnimatedGridItem = ({ children }) => {
@@ -21,7 +21,7 @@ const AnimatedGridItem = ({ children }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: trasitionDuration * 1.2, }}
+            transition={{ duration: trasitionDuration * 2, }}
         >
             {children}
         </Grid>
@@ -38,7 +38,7 @@ const SelectedFilters = () => {
     const gender = searchParams.get('gender')
     const { data: categories } = useCategories(gender)
 
-    const [ref, bounds] = useMeasure()
+    const [ref, bounds] = useMeasure({ debounce: 2 })
 
     const handleColorChange = (clearedColor) => {
         setSelectedColors(selectedColors.filter(color => color !== clearedColor))
@@ -77,6 +77,9 @@ const SelectedFilters = () => {
                                 rowGap={1}
                                 columnGap={1}
                                 ref={ref}
+                                sx={{
+                                    py: 1
+                                }}
                             >
                                 {selectedCategories.map(id => {
                                     const category = categories.find(category => category.id === id)

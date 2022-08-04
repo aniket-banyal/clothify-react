@@ -8,6 +8,7 @@ import CenteredCircularProgress from './CenteredCircularProgress'
 import { useSearchParams } from 'react-router-dom'
 import { Box } from '@mui/system';
 import SelectedFilters from './SelectedFilters';
+import Sidebar from './Sidebar';
 
 
 let suspense = false
@@ -38,30 +39,12 @@ const ClothesPage = () => {
                     selectedSizes, setSelectedSizes,
                     selectedCategories, setSelectedCategories,
                 }}>
-                <Grid
-                    container
-                    columnSpacing={4}
-                    sx={{ mt: 2 }}
-                >
-                    <Grid item xs={8} sm={8} md={9}>
-                        {isLoading ?
-                            <CenteredCircularProgress />
-                            :
-                            clothes.length > 0 ?
-                                <ClothesGrid clothes={clothes} />
-                                :
-                                <Typography variant='h6'> No such clothes found </Typography>
-                        }
-                    </Grid>
-
-                    <Grid item xs={4} sm={4} md={3}>
+                <Sidebar title='Filters'>
+                    <Suspense fallback={<CenteredCircularProgress />}>
                         <Stack
                             direction='column'
                             spacing={2}
-                            sx={{
-                                position: 'sticky',
-                                top: 100,
-                            }}
+                            padding={2}
                         >
                             <Suspense fallback={<></>}>
                                 <Filters />
@@ -69,8 +52,17 @@ const ClothesPage = () => {
 
                             <SelectedFilters />
                         </Stack>
-                    </Grid>
-                </Grid>
+                    </Suspense>
+                </Sidebar>
+
+                {isLoading ?
+                    <CenteredCircularProgress />
+                    :
+                    clothes.length > 0 ?
+                        <ClothesGrid clothes={clothes} />
+                        :
+                        <Typography variant='h6'> No such clothes found </Typography>
+                }
             </FiltersContext.Provider>
         </Box>
     );
