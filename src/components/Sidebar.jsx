@@ -1,11 +1,11 @@
-import { styled, useTheme } from '@mui/material/styles';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { useState } from 'react';
+import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import { Stack, Typography } from '@mui/material';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import { styled, useTheme } from '@mui/material/styles';
+import { useState } from 'react';
 
 
 const drawerWidth = 280;
@@ -36,7 +36,10 @@ const Sidebar = ({ title, children }) => {
                 edge="start"
                 sx={{ mr: 2 }}
             >
-                <MenuIcon />
+                <ExpandCircleDownIcon
+                    sx={{ transform: 'rotate(-90deg)' }}
+                    fontSize='large'
+                />
             </IconButton>
 
             <Drawer
