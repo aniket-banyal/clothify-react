@@ -93,6 +93,7 @@ const SelectedFilters = () => {
                                                 <SelectedFilter
                                                     name={gender ? category.name : `${category.name} (${category.gender})`}
                                                     value={id}
+                                                    filterName={'category'}
                                                     handleValueChange={handleCategoryChange}
                                                 />
                                             </AnimatedGridItem>
@@ -106,6 +107,7 @@ const SelectedFilters = () => {
                                             <SelectedFilter
                                                 name={color}
                                                 value={color}
+                                                filterName={'color'}
                                                 handleValueChange={handleColorChange}
                                             />
                                         </AnimatedGridItem>
@@ -118,6 +120,7 @@ const SelectedFilters = () => {
                                             <SelectedFilter
                                                 name={size}
                                                 value={size}
+                                                filterName={'size'}
                                                 handleValueChange={handleSizeChange}
                                             />
                                         </AnimatedGridItem>

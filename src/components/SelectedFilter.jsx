@@ -1,8 +1,10 @@
-import { IconButton, Stack, Typography } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
+import { IconButton, Stack, Typography } from "@mui/material";
+import { useClothesPrefetch } from '../hooks/useClothesPrefetch';
 
 
-const SelectedFilter = ({ name, value, handleValueChange }) => {
+const SelectedFilter = ({ name, value, filterName, handleValueChange }) => {
+    const { prefetchClothes } = useClothesPrefetch()
 
     return (
         <Stack
@@ -19,6 +21,7 @@ const SelectedFilter = ({ name, value, handleValueChange }) => {
                     borderColor: 'grey.300',
                 },
             }}
+            onMouseEnter={() => prefetchClothes({ [filterName]: value })}
         >
             <Typography variant="body2">
                 {name}
