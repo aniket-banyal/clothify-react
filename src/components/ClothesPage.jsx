@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import { useQueryClient } from '@tanstack/react-query';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ClothesPrefetchContext } from '../context/ClothesPrefetchContext';
 import { FiltersContext } from '../context/FiltersContext';
@@ -33,10 +33,10 @@ const ClothesPage = () => {
     const [selectedSizes, setSelectedSizes] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
 
-    const queryClient = useQueryClient()
-
     const [searchParams] = useSearchParams()
     const gender = searchParams.get('gender')
+
+    const queryClient = useQueryClient()
     const prefetchClothes = ({ category, size, color }) => {
 
         let categories = getPrefetchFilterArray(selectedCategories, category)
@@ -49,6 +49,12 @@ const ClothesPage = () => {
             { staleTime: 1000 * 60 }
         )
     }
+
+    useEffect(() => {
+        setSelectedCategories([])
+        setSelectedColors([])
+        setSelectedSizes([])
+    }, [gender])
 
 
     return (
