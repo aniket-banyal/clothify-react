@@ -1,16 +1,16 @@
 import { Grid } from "@mui/material";
-import { useSelectedFilters } from "../hooks/useSelectedFilters";
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion';
 import { useSearchParams } from "react-router-dom";
-import useCategories from "../hooks/api/useCategories";
-import SelectedFilter from "./SelectedFilter";
 import useMeasure from "react-use-measure";
+import useCategories from "../hooks/api/useCategories";
+import { useSelectedFilters } from "../hooks/useSelectedFilters";
 import CustomScrollbar from "./CustomScrollbar";
+import SelectedFilter from "./SelectedFilter";
 
 
 const paddingY = 2
 const height = 180
-const trasitionDuration = 0.16
+const trasitionDuration = 0.2
 
 
 const AnimatedGridItem = ({ children }) => {
@@ -21,7 +21,7 @@ const AnimatedGridItem = ({ children }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: trasitionDuration * 2, }}
+            transition={{ duration: trasitionDuration, }}
         >
             {children}
         </Grid>
@@ -38,7 +38,7 @@ const SelectedFilters = () => {
     const gender = searchParams.get('gender')
     const { data: categories } = useCategories(gender)
 
-    const [ref, bounds] = useMeasure({ debounce: 2 })
+    const [ref, bounds] = useMeasure({ debounce: 1 })
 
     const handleColorChange = (clearedColor) => {
         setSelectedColors(selectedColors.filter(color => color !== clearedColor))
@@ -55,9 +55,9 @@ const SelectedFilters = () => {
 
     return (
         <>
-            {
-                (selectedCategories.length > 0 || selectedColors.length > 0 || selectedSizes.length > 0) &&
-                <AnimatePresence initial={false}>
+            <AnimatePresence>
+                {
+                    (selectedCategories.length > 0 || selectedColors.length > 0 || selectedSizes.length > 0) &&
                     <Grid
                         container
                         sx={{
@@ -65,10 +65,13 @@ const SelectedFilters = () => {
                             px: 2,
                             bgcolor: 'grey.900',
                             borderRadius: 2,
+                            overflowY: 'hidden',
                         }}
                         component={motion.div}
-                        animate={{ height: Math.min(height, bounds.height) + paddingY * 14 }}
-                        transition={{ duration: trasitionDuration }}
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ height: Math.min(height, bounds.height) + paddingY * 14, opacity: 1 }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: trasitionDuration, }}
                     >
                         <CustomScrollbar height={height}>
                             <Grid
@@ -78,47 +81,54 @@ const SelectedFilters = () => {
                                 columnGap={1}
                                 ref={ref}
                                 sx={{
-                                    py: 1
+                                    py: 1,
                                 }}
                             >
-                                {selectedCategories.map(id => {
-                                    const category = categories.find(category => category.id === id)
+                                <AnimatePresence>
+                                    {selectedCategories.map(id => {
+                                        const category = categories.find(category => category.id === id)
 
-                                    return (
-                                        <AnimatedGridItem key={id}>
+                                        return (
+                                            <AnimatedGridItem key={id}>
+                                                <SelectedFilter
+                                                    name={gender ? category.name : `${category.name} (${category.gender})`}
+                                                    value={id}
+                                                    handleValueChange={handleCategoryChange}
+                                                />
+                                            </AnimatedGridItem>
+                                        )
+                                    })}
+                                </AnimatePresence>
+
+                                <AnimatePresence>
+                                    {selectedColors.map(color =>
+                                        <AnimatedGridItem key={color}>
                                             <SelectedFilter
-                                                name={gender ? category.name : `${category.name} (${category.gender})`}
-                                                value={id}
-                                                handleValueChange={handleCategoryChange}
+                                                name={color}
+                                                value={color}
+                                                handleValueChange={handleColorChange}
                                             />
                                         </AnimatedGridItem>
-                                    )
-                                })}
+                                    )}
+                                </AnimatePresence>
 
-                                {selectedColors.map(color =>
-                                    <AnimatedGridItem key={color}>
-                                        <SelectedFilter
-                                            name={color}
-                                            value={color}
-                                            handleValueChange={handleColorChange}
-                                        />
-                                    </AnimatedGridItem>
-                                )}
+                                <AnimatePresence>
+                                    {selectedSizes.map(size =>
+                                        <AnimatedGridItem key={size}>
+                                            <SelectedFilter
+                                                name={size}
+                                                value={size}
+                                                handleValueChange={handleSizeChange}
+                                            />
+                                        </AnimatedGridItem>
+                                    )}
+                                </AnimatePresence>
 
-                                {selectedSizes.map(size =>
-                                    <AnimatedGridItem key={size}>
-                                        <SelectedFilter
-                                            name={size}
-                                            value={size}
-                                            handleValueChange={handleSizeChange}
-                                        />
-                                    </AnimatedGridItem>
-                                )}
                             </Grid>
                         </CustomScrollbar>
                     </Grid>
-                </AnimatePresence>
-            }
+                }
+            </AnimatePresence>
         </>
     );
 }
