@@ -9,7 +9,7 @@ const ClothesGrid = ({ clothes, width, height, maxWidth }) => {
             container
             spacing={2}
         >
-            <AnimatePresence>
+            <AnimatePresence initial={false} >
                 {clothes.map(cloth =>
                     <Grid
                         item

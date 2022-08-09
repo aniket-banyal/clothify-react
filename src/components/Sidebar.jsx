@@ -54,6 +54,9 @@ const Sidebar = ({ title, children }) => {
                 anchor="left"
                 open={open}
                 onClose={toggleDrawer}
+                ModalProps={{
+                    keepMounted: true,
+                }}
             >
                 <DrawerHeader>
                     <Stack

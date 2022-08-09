@@ -1,9 +1,10 @@
-import { CircularProgress, Stack, Typography } from "@mui/material"
-import { useEffect } from "react"
-import { useSearchParams } from "react-router-dom"
-import { useInfiniteClothes } from "../hooks/api/useInfiniteClothes"
-import { useSelectedFilters } from "../hooks/useSelectedFilters"
-import ClothesGrid from "./ClothesGrid"
+import { CircularProgress, Stack, Typography } from "@mui/material";
+import { motion } from 'framer-motion';
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useInfiniteClothes } from "../hooks/api/useInfiniteClothes";
+import { useSelectedFilters } from "../hooks/useSelectedFilters";
+import ClothesGrid from "./ClothesGrid";
 
 
 const InfiniteClothesList = () => {
@@ -49,6 +50,9 @@ const InfiniteClothesList = () => {
                 }}
                 rowGap={4}
                 alignItems='center'
+                component={motion.div}
+                initial={{ x: '10%' }}
+                animate={{ x: 0 }}
             >
                 {
                     clothes.length > 0 ?

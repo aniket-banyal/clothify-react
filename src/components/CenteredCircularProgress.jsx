@@ -1,14 +1,14 @@
 import { Box, CircularProgress } from "@mui/material";
 
 
-const CenteredCircularProgress = () => {
+const CenteredCircularProgress = ({ minHeight = '100%', minWidth = '100%' }) => {
     return (
         <Box
             display="flex"
             justifyContent="center"
             alignItems="center"
-            minHeight="80%"
-            minWidth="80%"
+            minHeight={minHeight}
+            minWidth={minWidth}
         >
             <CircularProgress />
         </Box>

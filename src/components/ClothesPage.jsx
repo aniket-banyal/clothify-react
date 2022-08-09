@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import { useQueryClient } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ClothesPrefetchContext } from '../context/ClothesPrefetchContext';
@@ -69,33 +70,39 @@ const ClothesPage = () => {
                 <Stack
                     direction='row'
                     alignItems='flex-start'
-                    spacing={2}
-                    sx={{ height: '100%' }}
+                    columnGap={6}
+                    sx={{
+                        height: '100%',
+                        minHeight: '100vh',
+                        px: 2,
+                        overflowX: 'clip',
+                    }}
+                    component={motion.div}
                 >
-                    <Box
-                        sx={{
-                            position: 'sticky',
-                            top: '50%'
-                        }}
-                    >
-                        <Sidebar title='Filters'>
-                            <Suspense fallback={<CenteredCircularProgress />}>
-                                <Stack
-                                    direction='column'
-                                    spacing={2}
-                                    padding={2}
-                                >
-                                    <Suspense fallback={<></>}>
+                    <Suspense fallback={<CenteredCircularProgress minHeight='80vh' />}>
+                        <Box
+                            sx={{
+                                position: 'sticky',
+                                top: '50%'
+                            }}
+                            component={motion.div}
+                            initial={{ x: '-10%' }}
+                            animate={{ x: 0 }}
+                        >
+                            <Sidebar title='Filters'>
+                                <Suspense fallback={<CenteredCircularProgress />}>
+                                    <Stack
+                                        direction='column'
+                                        spacing={2}
+                                        padding={2}
+                                    >
                                         <Filters />
-                                    </Suspense>
+                                        <SelectedFilters />
+                                    </Stack>
+                                </Suspense>
+                            </Sidebar>
+                        </Box>
 
-                                    <SelectedFilters />
-                                </Stack>
-                            </Suspense>
-                        </Sidebar>
-                    </Box>
-
-                    <Suspense fallback={<CenteredCircularProgress />}>
                         <InfiniteClothesList />
                     </Suspense>
                 </Stack>
