@@ -12,7 +12,7 @@ const InfiniteClothesList = () => {
 
     const { selectedColors, selectedSizes, selectedCategories } = useSelectedFilters()
 
-    const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteClothes({
+    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isPreviousData } = useInfiniteClothes({
         gender,
         colors: selectedColors,
         sizes: selectedSizes,
@@ -26,7 +26,6 @@ const InfiniteClothesList = () => {
             const { scrollHeight, scrollTop, clientHeight } = e.target.scrollingElement
 
             if (!fetching && scrollHeight - scrollTop <= clientHeight * 1.6) {
-                console.log('her', hasNextPage)
                 fetching = true
                 if (hasNextPage)
                     await fetchNextPage()
@@ -44,7 +43,9 @@ const InfiniteClothesList = () => {
         <>
             <Stack
                 sx={{
-                    py: 2
+                    py: 2,
+                    filter: isPreviousData ? "blur(6px)" : 'none',
+                    pointerEvents: isPreviousData ? 'none' : 'auto',
                 }}
                 rowGap={4}
                 alignItems='center'

@@ -1,16 +1,17 @@
 import { Box, Typography } from "@mui/material";
-import useColors from "../hooks/api/useColors";
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useSelectedFilters } from '../hooks/useSelectedFilters'
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import useColors from "../hooks/api/useColors";
+import { useClothesPrefetch } from "../hooks/useClothesPrefetch";
+import { useSelectedFilters } from '../hooks/useSelectedFilters';
 
 
 const ColorFilter = () => {
     const { data: colors } = useColors()
     const { selectedColors, setSelectedColors } = useSelectedFilters()
-
+    const { prefetchClothes } = useClothesPrefetch()
 
     const handleChange = (event) => {
         if (event.target.checked)
@@ -39,6 +40,7 @@ const ColorFilter = () => {
                                     name={color}
                                 />
                             }
+                            onMouseEnter={() => prefetchClothes({ color })}
                         />
                     )}
                 </FormGroup>

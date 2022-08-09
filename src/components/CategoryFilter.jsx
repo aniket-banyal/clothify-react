@@ -1,11 +1,12 @@
 import { Box, Typography } from "@mui/material";
-import useCategories from "../hooks/api/useCategories";
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useSelectedFilters } from '../hooks/useSelectedFilters'
-import { useSearchParams } from 'react-router-dom'
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import { useSearchParams } from 'react-router-dom';
+import useCategories from "../hooks/api/useCategories";
+import { useClothesPrefetch } from '../hooks/useClothesPrefetch';
+import { useSelectedFilters } from '../hooks/useSelectedFilters';
 
 
 const CategoryFilter = () => {
@@ -14,6 +15,7 @@ const CategoryFilter = () => {
     const { data: categories } = useCategories(gender)
 
     const { selectedCategories, setSelectedCategories } = useSelectedFilters()
+    const { prefetchClothes } = useClothesPrefetch()
 
     const handleChange = (event) => {
         const categoryId = parseInt(event.target.value)
@@ -46,6 +48,7 @@ const CategoryFilter = () => {
                                     value={category.id}
                                 />
                             }
+                            onMouseEnter={() => prefetchClothes({ category: category.id })}
                         />
                     )}
                 </FormGroup>

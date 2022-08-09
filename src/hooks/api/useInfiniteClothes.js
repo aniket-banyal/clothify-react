@@ -5,7 +5,7 @@ import api from "../../api";
 const results_per_page = 15
 
 
-const getPaginatedClothes = async ({ gender, colors, sizes, categories, page = 1 }) => {
+export const getPaginatedClothes = async ({ gender, colors, sizes, categories, page = 1 }) => {
     if (!gender)
         gender = ''
     if (!colors)
@@ -49,6 +49,7 @@ export const useInfiniteClothes = ({ gender, colors, sizes, categories, suspense
             },
             select: (data) => ({ ...data, pages: data.pages.flatMap(page => page.results) }),
             suspense,
+            keepPreviousData: true,
         }
     )
 }

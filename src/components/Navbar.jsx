@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Slide from '@mui/material/Slide';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import Box from '@mui/material/Box';
-import Slide from '@mui/material/Slide';
-import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 
 
@@ -43,7 +43,9 @@ const Navbar = () => {
                 <Toolbar>
                     <Typography
                         variant="h6"
-                        component="div"
+                        color='inherit'
+                        component={RouterLink}
+                        to={'/'}
                         sx={{ flexGrow: 1 }}
                     >
                         Clothify

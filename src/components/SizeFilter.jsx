@@ -1,15 +1,17 @@
 import { Box, Typography } from "@mui/material";
-import useSizes from "../hooks/api/useSizes";
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import useSizes from "../hooks/api/useSizes";
+import { useClothesPrefetch } from "../hooks/useClothesPrefetch";
 import { useSelectedFilters } from "../hooks/useSelectedFilters";
 
 
 const SizeFilter = () => {
     const { data: sizes } = useSizes()
     const { selectedSizes, setSelectedSizes } = useSelectedFilters()
+    const { prefetchClothes } = useClothesPrefetch()
 
     const handleChange = (event) => {
         const name = event.target.name
@@ -38,6 +40,7 @@ const SizeFilter = () => {
                                     name={size}
                                 />
                             }
+                            onMouseEnter={() => prefetchClothes({ size })}
                         />
                     )}
                 </FormGroup>
