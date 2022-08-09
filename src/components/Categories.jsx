@@ -18,8 +18,8 @@ const Categories = () => {
 
             <Stack
                 direction='row'
-                spacing={4}
-                justifyContent='center'
+                spacing={1}
+                justifyContent='flex-start'
                 sx={{
                     width: '90%',
                     overflowX: 'scroll'

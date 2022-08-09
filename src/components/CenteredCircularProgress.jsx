@@ -7,7 +7,8 @@ const CenteredCircularProgress = () => {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            minHeight="100%"
+            minHeight="80%"
+            minWidth="80%"
         >
             <CircularProgress />
         </Box>
