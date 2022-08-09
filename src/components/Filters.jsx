@@ -1,10 +1,10 @@
 import { Grid } from "@mui/material";
-import CategoryFilter from "./CategoryFilter";
-import ColorFilter from "./ColorFilter";
-import SizeFilter from "./SizeFilter";
 import { useState } from "react";
+import CategoryFilter from "./CategoryFilter";
 import Collapsible from "./Collapsible";
+import ColorFilter from "./ColorFilter";
 import CustomScrollbar from "./CustomScrollbar";
+import SizeFilter from "./SizeFilter";
 
 
 const filters = [
@@ -17,7 +17,9 @@ const filters = [
 const height = 250
 
 const Filters = () => {
-    const [expandedName, setExpandedName] = useState('')
+    const [expandedName, setExpandedName] = useState(filters[0].name)
+
+
     return (
         <Grid
             container
