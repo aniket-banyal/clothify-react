@@ -1,31 +1,18 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import { Suspense, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { FiltersContext } from '../context/FiltersContext';
-import useClothes from '../hooks/api/useClothes';
 import CenteredCircularProgress from './CenteredCircularProgress';
-import ClothesGrid from "./ClothesGrid";
 import Filters from './Filters';
+import InfiniteClothesList from './InfiniteClothesList';
 import SelectedFilters from './SelectedFilters';
 import Sidebar from './Sidebar';
 
 
-let suspense = false
 const ClothesPage = () => {
     const [selectedColors, setSelectedColors] = useState([])
     const [selectedSizes, setSelectedSizes] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
-
-    const [searchParams] = useSearchParams()
-    const gender = searchParams.get('gender')
-
-    const { data: clothes, isLoading } = useClothes({
-        gender,
-        colors: selectedColors,
-        sizes: selectedSizes,
-        categories: selectedCategories,
-    }, suspense)
 
 
     return (
@@ -39,6 +26,7 @@ const ClothesPage = () => {
                 direction='row'
                 alignItems='flex-start'
                 spacing={2}
+                sx={{ height: '100%' }}
             >
                 <Box
                     sx={{
@@ -63,14 +51,9 @@ const ClothesPage = () => {
                     </Sidebar>
                 </Box>
 
-                {isLoading ?
-                    <CenteredCircularProgress />
-                    :
-                    clothes.length > 0 ?
-                        <ClothesGrid clothes={clothes} />
-                        :
-                        <Typography variant='h6'> No such clothes found </Typography>
-                }
+                <Suspense fallback={<CenteredCircularProgress />}>
+                    <InfiniteClothesList />
+                </Suspense>
             </Stack>
         </FiltersContext.Provider>
     );

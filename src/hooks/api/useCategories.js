@@ -16,5 +16,8 @@ const getCategories = async (gender) => {
 }
 
 export default function useCategories(gender) {
-    return useQuery([`categories ${gender}`], () => getCategories(gender))
+    return useQuery(
+        [`categories ${gender}`],
+        () => getCategories(gender),
+        { suspense: true })
 }

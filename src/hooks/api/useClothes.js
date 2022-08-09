@@ -19,7 +19,7 @@ export const getClothes = async ({ gender, colors, sizes, categories }) => {
     return data
 }
 
-export default function useClothes({ gender, colors, sizes, categories }, suspense = true) {
+export default function useClothes({ gender, colors, sizes, categories, suspense = true }) {
 
     // Creating copy so that original array doesn't get modified, which causes UI issue in SelectedFilters
     colors = colors?.slice()

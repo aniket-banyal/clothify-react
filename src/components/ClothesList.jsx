@@ -1,4 +1,4 @@
-import useClothes from '../hooks/api/useClothes'
+import useClothes from '../hooks/api/useClothes';
 import { useGender } from "../hooks/useGender";
 import ClothesGrid from "./ClothesGrid";
 

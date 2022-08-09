@@ -1,15 +1,15 @@
-import { Stack, Typography } from "@mui/material";
-import { Suspense, useEffect, useState } from "react";
-import Categories from "./Categories";
-import ClothesList from "./ClothesList";
-import HomePageBanner from "./HomePageBanner";
-import CenteredCircularProgress from './CenteredCircularProgress';
-import { ErrorBoundary } from "react-error-boundary";
-import { GenderContext } from '../context/GenderContext'
-import { useQueryClient } from "@tanstack/react-query";
-import { getClothes } from "../hooks/api/useClothes";
-import ErrorFallback from './ErrorFallback'
+import { Stack } from "@mui/material";
 import { Container } from "@mui/system";
+import { useQueryClient } from "@tanstack/react-query";
+import { Suspense, useEffect, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { GenderContext } from '../context/GenderContext';
+import { getClothes } from "../hooks/api/useClothes";
+import Categories from './Categories';
+import CenteredCircularProgress from './CenteredCircularProgress';
+import ClothesList from "./ClothesList";
+import ErrorFallback from './ErrorFallback';
+import HomePageBanner from "./HomePageBanner";
 
 
 const genderValues = [
