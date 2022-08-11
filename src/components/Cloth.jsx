@@ -1,8 +1,9 @@
+import { CardActionArea, Stack } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, Stack } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 
 const Cloth = ({ cloth, width = 220, height = 200, maxWidth = 345 }) => {
@@ -14,7 +15,7 @@ const Cloth = ({ cloth, width = 220, height = 200, maxWidth = 345 }) => {
                 borderRadius: 2
             }}
         >
-            <CardActionArea>
+            <CardActionArea component={Link} to={`/clothes/${cloth.id}`}>
                 <CardMedia
                     component="img"
                     height={height}
