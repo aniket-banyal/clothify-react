@@ -63,11 +63,17 @@ const ClothPage = () => {
                             </Typography>
                         </Stack>
 
-                        <Typography
-                            variant="body1"
+                        <Box
+                            sx={{
+                                width: '90%',
+                            }}
                         >
-                            {cloth.description}
-                        </Typography>
+                            <Typography
+                                variant="body1"
+                            >
+                                {cloth.description}
+                            </Typography>
+                        </Box>
 
                         <ClothPageSize
                             size={cloth.size}
