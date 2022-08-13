@@ -23,7 +23,7 @@ const ClothPage = () => {
                 container
                 direction='row'
                 rowSpacing={4}
-                columnSpacing={2}
+                columnSpacing={6}
                 justifyContent='center'
 
             >

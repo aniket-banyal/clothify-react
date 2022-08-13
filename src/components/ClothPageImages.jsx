@@ -1,66 +1,65 @@
-import { Box, Stack } from "@mui/material";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { Box } from "@mui/material";
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 
-const mini_img_wrapper_size = 80
+const imgHeight = 400
+const thumbImgHeight = 80
 
 
 const ClothPageImages = ({ cloth }) => {
     const img_urls = [cloth.cover_img_url, ...cloth.images]
-    const [selectedImgIdx, setSelectedImgIdx] = useState(0)
+    const items = img_urls.map(url => ({
+        original: url,
+        thumbnail: url,
+    }))
 
     return (
-        <Stack
-            direction='row'
-            component={motion.div}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-        >
-            <Stack
-                spacing={2}
-            >
-                {img_urls.map((url, i) =>
+        <ImageGallery
+            items={items}
+            slideDuration={300}
+            showThumbnails
+            showPlayButton={false}
+            showFullscreenButton={false}
+            renderItem={({ original }) => {
+                return (
                     <Box
-                        key={url}
-                        onMouseOver={() => setSelectedImgIdx(i)}
                         sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxShadow: selectedImgIdx === i ? '0 0 12px 6px gray' : 0,
-                            width: mini_img_wrapper_size,
-                            height: mini_img_wrapper_size,
+                            height: imgHeight
                         }}
                     >
                         <img
-                            src={url}
+                            src={original}
                             style={{
-                                width: '100%',
                                 height: '100%',
-                                objectFit: 'cover',
+                                width: '100%',
+                                objectFit: 'cover'
                             }}
-                        />
+                        >
+                        </img>
                     </Box>
-
-                )}
-            </Stack >
-
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                }}
-            >
-                <img
-                    src={img_urls[selectedImgIdx]}
-                    style={{
-                        width: '80%',
-                        objectFit: 'cover',
-                    }}
-                />
-            </Box>
-        </Stack>
+                )
+            }}
+            renderThumbInner={({ thumbnail }) => {
+                return (
+                    <Box
+                        sx={{
+                            height: thumbImgHeight
+                        }}
+                    >
+                        <img
+                            src={thumbnail}
+                            style={{
+                                height: '100%',
+                                width: '100%',
+                                objectFit: 'cover'
+                            }}
+                        >
+                        </img>
+                    </Box>
+                )
+            }}
+        />
     );
 }
 
