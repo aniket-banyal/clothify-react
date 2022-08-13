@@ -9,6 +9,15 @@ const getColors = async () => {
     return data
 }
 
+
+const oneMinute = 1000 * 60
+const staleTime = 5 * oneMinute
+
+
 export default function useColors() {
-    return useQuery([`colors`], getColors)
+    return useQuery(
+        [`colors`],
+        getColors,
+        { staleTime }
+    )
 }

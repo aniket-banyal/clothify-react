@@ -15,9 +15,18 @@ const getCategories = async (gender) => {
     return data
 }
 
+
+const oneMinute = 1000 * 60
+const staleTime = 5 * oneMinute
+
+
 export default function useCategories(gender) {
     return useQuery(
         [`categories ${gender}`],
         () => getCategories(gender),
-        { suspense: true })
+        {
+            suspense: true,
+            staleTime
+        }
+    )
 }

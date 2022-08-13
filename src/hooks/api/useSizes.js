@@ -9,6 +9,15 @@ const getSizes = async () => {
     return data
 }
 
+
+const oneMinute = 1000 * 60
+const staleTime = 5 * oneMinute
+
+
 export default function useSizes() {
-    return useQuery([`sizes`], getSizes)
+    return useQuery(
+        [`sizes`],
+        getSizes,
+        { staleTime }
+    )
 }

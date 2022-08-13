@@ -1,12 +1,13 @@
 import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
-import useClothesByCategory from "../hooks/api/useClothesByCategory";
+import useClothes from "../hooks/api/useClothes";
 import Cloth from "./Cloth";
 
 
 const CategoryPage = () => {
     const { categoryId } = useParams()
-    const { data: clothes } = useClothesByCategory(categoryId)
+    const { data: clothes } = useClothes({ category: categoryId })
+
 
     return (
         <Grid
