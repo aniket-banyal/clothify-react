@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CategoryPage from './CategoryPage';
 import CenteredCircularProgress from './CenteredCircularProgress';
 import ClothesPage from './ClothesPage';
+import ClothPage from './ClothPage';
 import ErrorFallback from './ErrorFallback';
 import HomePage from './HomePage';
 import Navbar from './Navbar';
@@ -40,15 +41,23 @@ function App() {
             <Routes>
               <Route path="/">
                 <Route index element={<HomePage />} />
-                <Route path="clothes" element={
-                  <ErrorBoundary FallbackComponent={ErrorFallback}>
-                    <ClothesPage />
-                  </ErrorBoundary>
-                }
-                />
+                <Route path="clothes" element={<OutletWrapper />}>
+                  <Route index element={
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                      <ClothesPage />
+                    </ErrorBoundary>
+                  } />
+
+                  <Route path=":clothId" element={
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                      <Suspense fallback={<CenteredCircularProgress />}>
+                        <ClothPage />
+                      </Suspense>
+                    </ErrorBoundary>
+                  } />
+                </Route>
 
                 <Route path="categories" element={<OutletWrapper />}>
-
                   <Route
                     path=":categoryId"
                     element={

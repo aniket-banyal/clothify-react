@@ -39,7 +39,6 @@ const ClothesPage = () => {
 
     const queryClient = useQueryClient()
     const prefetchClothes = ({ category, size, color }) => {
-
         let categories = getPrefetchFilterArray(selectedCategories, category)
         let colors = getPrefetchFilterArray(selectedColors, color)
         let sizes = getPrefetchFilterArray(selectedSizes, size)

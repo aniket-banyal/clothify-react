@@ -46,7 +46,6 @@ const Navbar = () => {
                         color='inherit'
                         component={RouterLink}
                         to={'/'}
-                        sx={{ flexGrow: 1 }}
                     >
                         Clothify
                     </Typography>
