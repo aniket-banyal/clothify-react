@@ -41,7 +41,7 @@ export const useInfiniteClothes = ({ gender, colors, sizes, categories, suspense
     categories?.sort()
 
     return useInfiniteQuery(
-        [`clothes ${gender} ${colors} ${sizes} ${categories}`],
+        [`infiniteClothes ${gender} ${colors} ${sizes} ${categories}`],
         ({ pageParam: page }) => getPaginatedClothes({ gender, colors, sizes, categories, page }),
         {
             getNextPageParam: (lastPage, allPages) => {

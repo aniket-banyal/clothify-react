@@ -44,7 +44,7 @@ const ClothesPage = () => {
         let sizes = getPrefetchFilterArray(selectedSizes, size)
 
         queryClient.prefetchInfiniteQuery(
-            [`clothes ${gender} ${colors} ${sizes} ${categories}`],
+            [`infiniteClothes ${gender} ${colors} ${sizes} ${categories}`],
             () => getPaginatedClothes({ gender, colors, sizes, categories }),
             { staleTime: 1000 * 60 }
         )
