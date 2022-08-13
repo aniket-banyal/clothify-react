@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import useCloth from "../hooks/api/useCloth";
 import ClothPageColor from "./ClothPageColor";
 import ClothPageImages from './ClothPageImages';
+import ClothPageMaterial from "./ClothPageMaterial";
 import ClothPageSize from "./ClothPageSize";
 
 
@@ -81,6 +82,10 @@ const ClothPage = () => {
 
                         <ClothPageColor
                             color={cloth.color}
+                        />
+
+                        <ClothPageMaterial
+                            material={cloth.material}
                         />
 
                         <Stack
