@@ -1,7 +1,6 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useState } from 'react';
-import { styled } from "@mui/system";
 import { Collapse, IconButton, Stack, Typography } from "@mui/material";
+import { styled } from "@mui/system";
 
 
 const ExpandMore = styled((props) => {
@@ -20,8 +19,18 @@ const Collapsible = ({ title, children, expanded, toggleExpanded }) => {
 
     return (
         <>
-            <Stack direction='row' justifyContent={'space-between'} alignItems='center'>
-                <Typography color={expanded ? 'primary.main' : 'text.primary'}>
+            <Stack
+                direction='row'
+                justifyContent={'space-between'}
+                alignItems='center'
+                sx={{
+                    px: 1
+                }}
+            >
+                <Typography
+                    color={expanded ? 'primary.main' : 'text.primary'}
+                    sx={{ ml: 2 }}
+                >
                     {title}
                 </Typography>
                 <ExpandMore
@@ -32,7 +41,11 @@ const Collapsible = ({ title, children, expanded, toggleExpanded }) => {
                 </ExpandMore>
             </Stack>
 
-            <Collapse in={expanded} timeout="auto">
+            <Collapse in={expanded} timeout="auto"
+                sx={{
+                    px: 1
+                }}
+            >
                 {children}
             </Collapse>
         </>

@@ -32,7 +32,8 @@ const AnimatedGridItem = ({ children }) => {
 const SelectedFilters = () => {
     const { selectedCategories, setSelectedCategories,
         selectedColors, setSelectedColors,
-        selectedSizes, setSelectedSizes } = useSelectedFilters()
+        selectedSizes, setSelectedSizes,
+        selectedPriceRange, setSelectedPriceRange } = useSelectedFilters()
 
     const [searchParams] = useSearchParams()
     const gender = searchParams.get('gender')
@@ -52,12 +53,22 @@ const SelectedFilters = () => {
         setSelectedSizes(selectedSizes.filter(size => size !== clearedSize))
     }
 
+    const handlePriceChange = () => {
+        setSelectedPriceRange('')
+    }
+
 
     return (
         <>
             <AnimatePresence>
                 {
-                    (selectedCategories.length > 0 || selectedColors.length > 0 || selectedSizes.length > 0) &&
+                    (
+                        selectedCategories.length > 0 ||
+                        selectedColors.length > 0 ||
+                        selectedSizes.length > 0 ||
+                        selectedPriceRange !== ''
+                    )
+                    &&
                     <Grid
                         container
                         sx={{
@@ -127,6 +138,20 @@ const SelectedFilters = () => {
                                     )}
                                 </AnimatePresence>
 
+                                {
+                                    selectedPriceRange !== '' &&
+                                    <AnimatePresence>
+                                        <AnimatedGridItem>
+                                            <SelectedFilter
+                                                name={selectedPriceRange}
+                                                value={selectedPriceRange}
+                                                filterName={'price'}
+                                                handleValueChange={handlePriceChange}
+                                                nameFormat={(value) => `₹${value[0]} - ₹${value[1]}`}
+                                            />
+                                        </AnimatedGridItem>
+                                    </AnimatePresence>
+                                }
                             </Grid>
                         </CustomScrollbar>
                     </Grid>

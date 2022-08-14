@@ -13,6 +13,7 @@ import InfiniteClothesList from './InfiniteClothesList';
 import SelectedFilters from './SelectedFilters';
 import Sidebar from './Sidebar';
 
+
 const getPrefetchFilterArray = (arr, val) => {
     let newArr = arr.slice()
 
@@ -29,23 +30,27 @@ const getPrefetchFilterArray = (arr, val) => {
     return newArr
 }
 
+
 const ClothesPage = () => {
     const [selectedColors, setSelectedColors] = useState([])
     const [selectedSizes, setSelectedSizes] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
+    const [selectedPriceRange, setSelectedPriceRange] = useState('')
 
     const [searchParams] = useSearchParams()
     const gender = searchParams.get('gender')
 
     const queryClient = useQueryClient()
-    const prefetchClothes = ({ category, size, color }) => {
+    const prefetchClothes = ({ category, size, color, price }) => {
         let categories = getPrefetchFilterArray(selectedCategories, category)
         let colors = getPrefetchFilterArray(selectedColors, color)
         let sizes = getPrefetchFilterArray(selectedSizes, size)
+        // In SelectedFilter, on hover price is set to ''
+        let priceRange = (price?.length === 2 || price === '') ? price : selectedPriceRange
 
         queryClient.prefetchInfiniteQuery(
-            [`infiniteClothes ${gender} ${colors} ${sizes} ${categories}`],
-            () => getPaginatedClothes({ gender, colors, sizes, categories }),
+            [`infiniteClothes ${gender} ${colors} ${sizes} ${categories} ${price}`],
+            () => getPaginatedClothes({ gender, colors, sizes, categories, price: priceRange }),
             { staleTime: 1000 * 60 }
         )
     }
@@ -54,6 +59,7 @@ const ClothesPage = () => {
         setSelectedCategories([])
         setSelectedColors([])
         setSelectedSizes([])
+        setSelectedPriceRange('')
     }, [gender])
 
 
@@ -63,6 +69,7 @@ const ClothesPage = () => {
                 selectedColors, setSelectedColors,
                 selectedSizes, setSelectedSizes,
                 selectedCategories, setSelectedCategories,
+                selectedPriceRange, setSelectedPriceRange,
             }}
         >
             <ClothesPrefetchContext.Provider value={{ prefetchClothes }}>

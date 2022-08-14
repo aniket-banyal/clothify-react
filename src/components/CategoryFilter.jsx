@@ -30,6 +30,7 @@ const CategoryFilter = () => {
         <Box
             sx={{
                 display: 'flex',
+                ml: 2,
             }}>
             <FormControl component="fieldset" variant="standard">
                 <FormGroup>

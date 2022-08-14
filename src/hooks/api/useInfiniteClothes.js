@@ -5,7 +5,7 @@ import api from "../../api";
 const results_per_page = 15
 
 
-export const getPaginatedClothes = async ({ gender, colors, sizes, categories, page = 1 }) => {
+export const getPaginatedClothes = async ({ gender, colors, sizes, categories, price, page = 1 }) => {
     if (!gender)
         gender = ''
     if (!colors)
@@ -14,12 +14,15 @@ export const getPaginatedClothes = async ({ gender, colors, sizes, categories, p
         sizes = []
     if (!categories)
         categories = []
+    if (!price)
+        price = []
 
     const searchParams = new URLSearchParams({
         gender,
         color: colors,
         size: sizes,
         category: categories,
+        sell_price: price,
         page,
         limit: results_per_page
     })
@@ -30,7 +33,7 @@ export const getPaginatedClothes = async ({ gender, colors, sizes, categories, p
     return data
 }
 
-export const useInfiniteClothes = ({ gender, colors, sizes, categories, suspense = true }) => {
+export const useInfiniteClothes = ({ gender, colors, sizes, categories, price, suspense = true }) => {
     // Creating copy so that original array doesn't get modified, which causes UI issue in SelectedFilters
     colors = colors?.slice()
     sizes = sizes?.slice()
@@ -41,8 +44,8 @@ export const useInfiniteClothes = ({ gender, colors, sizes, categories, suspense
     categories?.sort()
 
     return useInfiniteQuery(
-        [`infiniteClothes ${gender} ${colors} ${sizes} ${categories}`],
-        ({ pageParam: page }) => getPaginatedClothes({ gender, colors, sizes, categories, page }),
+        [`infiniteClothes ${gender} ${colors} ${sizes} ${categories} ${price}`],
+        ({ pageParam: page }) => getPaginatedClothes({ gender, colors, sizes, categories, price, page }),
         {
             getNextPageParam: (lastPage, allPages) => {
                 return lastPage.next ? allPages.length + 1 : undefined

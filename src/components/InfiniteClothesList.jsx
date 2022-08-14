@@ -11,13 +11,14 @@ const InfiniteClothesList = () => {
     const [searchParams] = useSearchParams()
     const gender = searchParams.get('gender')
 
-    const { selectedColors, selectedSizes, selectedCategories } = useSelectedFilters()
+    const { selectedColors, selectedSizes, selectedCategories, selectedPriceRange } = useSelectedFilters()
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isPreviousData } = useInfiniteClothes({
         gender,
         colors: selectedColors,
         sizes: selectedSizes,
         categories: selectedCategories,
+        price: selectedPriceRange
     })
     const clothes = data?.pages || []
 
