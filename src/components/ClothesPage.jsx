@@ -13,6 +13,7 @@ import InfiniteClothesList from './InfiniteClothesList';
 import SelectedFilters from './SelectedFilters';
 import Sidebar from './Sidebar';
 
+
 const getPrefetchFilterArray = (arr, val) => {
     let newArr = arr.slice()
 
@@ -29,10 +30,16 @@ const getPrefetchFilterArray = (arr, val) => {
     return newArr
 }
 
+
+const minPrice = 0
+const maxPrice = 10000
+
+
 const ClothesPage = () => {
     const [selectedColors, setSelectedColors] = useState([])
     const [selectedSizes, setSelectedSizes] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
+    const [selectedPriceRange, setSelectedPriceRange] = useState([minPrice, maxPrice])
 
     const [searchParams] = useSearchParams()
     const gender = searchParams.get('gender')
@@ -63,6 +70,7 @@ const ClothesPage = () => {
                 selectedColors, setSelectedColors,
                 selectedSizes, setSelectedSizes,
                 selectedCategories, setSelectedCategories,
+                selectedPriceRange, setSelectedPriceRange,
             }}
         >
             <ClothesPrefetchContext.Provider value={{ prefetchClothes }}>
@@ -95,7 +103,10 @@ const ClothesPage = () => {
                                         spacing={2}
                                         padding={2}
                                     >
-                                        <Filters />
+                                        <Filters
+                                            minPrice={minPrice}
+                                            maxPrice={maxPrice}
+                                        />
                                         <SelectedFilters />
                                     </Stack>
                                 </Suspense>
