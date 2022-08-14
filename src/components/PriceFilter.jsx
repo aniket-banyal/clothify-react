@@ -4,6 +4,30 @@ import { useClothesPrefetch } from "../hooks/useClothesPrefetch";
 import { useSelectedFilters } from "../hooks/useSelectedFilters";
 
 
+const PriceInput = ({ label, value, setValue, minPrice, maxPrice }) => {
+    const onChange = (e) => {
+        let newValue = e.target.value
+        if (newValue)
+            newValue = parseInt(newValue)
+        setValue(newValue)
+    }
+
+    return (
+        <TextField
+            label={label}
+            type="number"
+            variant="outlined"
+            size='medium'
+            value={value}
+            onChange={onChange}
+            InputProps={{
+                inputProps: { min: minPrice, max: maxPrice }
+            }}
+        />
+    )
+}
+
+
 const PriceFilter = ({ minPrice, maxPrice }) => {
     const { selectedPriceRange, setSelectedPriceRange } = useSelectedFilters()
     const { prefetchClothes } = useClothesPrefetch()
@@ -32,38 +56,20 @@ const PriceFilter = ({ minPrice, maxPrice }) => {
                     width: '100%'
                 }}
             >
-                <TextField
+                <PriceInput
                     label='Min Price'
-                    type="number"
-                    variant="outlined"
-                    size='medium'
-                    InputProps={{
-                        inputProps: { min: minPrice, max: maxPrice }
-                    }}
                     value={min}
-                    onChange={(e) => {
-                        let newValue = e.target.value
-                        if (newValue)
-                            newValue = parseInt(newValue)
-                        setMin(newValue)
-                    }}
+                    setValue={(value) => setMin(value)}
+                    minPrice={minPrice}
+                    maxPrice={maxPrice}
                 />
 
-                <TextField
+                <PriceInput
                     label='Max Price'
-                    type="number"
-                    variant="outlined"
-                    size='medium'
-                    InputProps={{
-                        inputProps: { min: minPrice, max: maxPrice }
-                    }}
                     value={max}
-                    onChange={(e) => {
-                        let newValue = e.target.value
-                        if (newValue)
-                            newValue = parseInt(newValue)
-                        setMax(newValue)
-                    }}
+                    setValue={(value) => setMax(value)}
+                    minPrice={minPrice}
+                    maxPrice={maxPrice}
                 />
 
                 <Button
