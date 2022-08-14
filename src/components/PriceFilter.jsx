@@ -1,5 +1,6 @@
 import { Box, Button, Stack, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import usePriceRange from "../hooks/api/usePriceRange";
 import { useClothesPrefetch } from "../hooks/useClothesPrefetch";
 import { useSelectedFilters } from "../hooks/useSelectedFilters";
 
@@ -28,7 +29,9 @@ const PriceInput = ({ label, value, setValue, minPrice, maxPrice }) => {
 }
 
 
-const PriceFilter = ({ minPrice, maxPrice }) => {
+const PriceFilter = () => {
+    const { data: priceRange } = usePriceRange()
+    const { min_price: minPrice, max_price: maxPrice } = priceRange
     const { selectedPriceRange, setSelectedPriceRange } = useSelectedFilters()
     const { prefetchClothes } = useClothesPrefetch()
 

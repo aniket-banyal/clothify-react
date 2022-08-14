@@ -11,12 +11,12 @@ import SizeFilter from "./SizeFilter";
 const height = 250
 
 
-const Filters = ({ minPrice, maxPrice }) => {
+const Filters = () => {
     const filters = [
         { name: 'Category', component: CategoryFilter },
         { name: 'Color', component: ColorFilter },
         { name: 'Size', component: SizeFilter },
-        { name: 'Price', component: PriceFilter, props: { minPrice, maxPrice } },
+        { name: 'Price', component: PriceFilter },
     ]
 
     const [expandedName, setExpandedName] = useState(filters[0].name)

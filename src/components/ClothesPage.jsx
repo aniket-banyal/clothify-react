@@ -31,10 +31,6 @@ const getPrefetchFilterArray = (arr, val) => {
 }
 
 
-const minPrice = 0
-const maxPrice = 10000
-
-
 const ClothesPage = () => {
     const [selectedColors, setSelectedColors] = useState([])
     const [selectedSizes, setSelectedSizes] = useState([])
@@ -106,10 +102,7 @@ const ClothesPage = () => {
                                         spacing={2}
                                         padding={2}
                                     >
-                                        <Filters
-                                            minPrice={minPrice}
-                                            maxPrice={maxPrice}
-                                        />
+                                        <Filters />
                                         <SelectedFilters />
                                     </Stack>
                                 </Suspense>
