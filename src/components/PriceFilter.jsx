@@ -1,5 +1,5 @@
 import { Box, Button, Stack, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useClothesPrefetch } from "../hooks/useClothesPrefetch";
 import { useSelectedFilters } from "../hooks/useSelectedFilters";
 
@@ -7,8 +7,15 @@ import { useSelectedFilters } from "../hooks/useSelectedFilters";
 const PriceFilter = ({ minPrice, maxPrice }) => {
     const { selectedPriceRange, setSelectedPriceRange } = useSelectedFilters()
     const { prefetchClothes } = useClothesPrefetch()
-    const [min, setMin] = useState(selectedPriceRange[0])
-    const [max, setMax] = useState(selectedPriceRange[1])
+
+    const [min, setMin] = useState(selectedPriceRange[0] ?? '')
+    const [max, setMax] = useState(selectedPriceRange[1] ?? '')
+
+    // When selectedPriceRange is changed by clearing the SelectedFilter for price, then need to update min and max
+    useEffect(() => {
+        setMin(selectedPriceRange[0] ?? '')
+        setMax(selectedPriceRange[1] ?? '')
+    }, [selectedPriceRange])
 
 
     return (
@@ -70,6 +77,7 @@ const PriceFilter = ({ minPrice, maxPrice }) => {
                         max <= maxPrice
                     )}
                     onClick={() => setSelectedPriceRange([min, max])}
+                    onMouseEnter={() => prefetchClothes({ price: [min, max] })}
                 >
                     Apply
                 </Button>

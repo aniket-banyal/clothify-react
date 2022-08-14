@@ -29,7 +29,7 @@ const AnimatedGridItem = ({ children }) => {
 }
 
 
-const SelectedFilters = ({ minPrice, maxPrice }) => {
+const SelectedFilters = () => {
     const { selectedCategories, setSelectedCategories,
         selectedColors, setSelectedColors,
         selectedSizes, setSelectedSizes,
@@ -54,7 +54,7 @@ const SelectedFilters = ({ minPrice, maxPrice }) => {
     }
 
     const handlePriceChange = () => {
-        setSelectedPriceRange([minPrice, maxPrice])
+        setSelectedPriceRange('')
     }
 
 
@@ -66,8 +66,7 @@ const SelectedFilters = ({ minPrice, maxPrice }) => {
                         selectedCategories.length > 0 ||
                         selectedColors.length > 0 ||
                         selectedSizes.length > 0 ||
-                        selectedPriceRange[0] !== minPrice ||
-                        selectedPriceRange[1] !== maxPrice
+                        selectedPriceRange !== ''
                     )
                     &&
                     <Grid
@@ -139,17 +138,20 @@ const SelectedFilters = ({ minPrice, maxPrice }) => {
                                     )}
                                 </AnimatePresence>
 
-                                <AnimatePresence>
-                                    <AnimatedGridItem>
-                                        <SelectedFilter
-                                            name={selectedPriceRange}
-                                            value={selectedPriceRange}
-                                            filterName={'price'}
-                                            handleValueChange={handlePriceChange}
-                                            nameFormat={(value) => `₹${value[0]} - ₹${value[1]}`}
-                                        />
-                                    </AnimatedGridItem>
-                                </AnimatePresence>
+                                {
+                                    selectedPriceRange !== '' &&
+                                    <AnimatePresence>
+                                        <AnimatedGridItem>
+                                            <SelectedFilter
+                                                name={selectedPriceRange}
+                                                value={selectedPriceRange}
+                                                filterName={'price'}
+                                                handleValueChange={handlePriceChange}
+                                                nameFormat={(value) => `₹${value[0]} - ₹${value[1]}`}
+                                            />
+                                        </AnimatedGridItem>
+                                    </AnimatePresence>
+                                }
                             </Grid>
                         </CustomScrollbar>
                     </Grid>

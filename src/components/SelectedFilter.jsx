@@ -22,7 +22,15 @@ const SelectedFilter = ({ name, value, filterName, handleValueChange, nameFormat
                     borderColor: 'grey.300',
                 },
             }}
-            onMouseEnter={() => prefetchClothes({ [filterName]: value })}
+            onMouseEnter={() => {
+                // For Color, Cateogry and Size Filter, value will be string or number, and it would already be in array and thus will be removed in prefetchClothes
+                if (typeof value === 'string' || typeof value === 'number')
+                    prefetchClothes({ [filterName]: value })
+
+                // For PriceFilter value will be an arr [min, max], so that to remove it in prefetchClothes, set it to ''
+                else
+                    prefetchClothes({ [filterName]: '' })
+            }}
         >
             <Typography variant="body2">
                 {nameFormat ? nameFormat(name) : name}
