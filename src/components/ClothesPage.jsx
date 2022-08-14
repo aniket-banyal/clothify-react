@@ -107,7 +107,10 @@ const ClothesPage = () => {
                                             minPrice={minPrice}
                                             maxPrice={maxPrice}
                                         />
-                                        <SelectedFilters />
+                                        <SelectedFilters
+                                            minPrice={minPrice}
+                                            maxPrice={maxPrice}
+                                        />
                                     </Stack>
                                 </Suspense>
                             </Sidebar>
