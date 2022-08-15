@@ -4,13 +4,10 @@ import { useSearchParams } from "react-router-dom";
 import useMeasure from "react-use-measure";
 import useCategories from "../hooks/api/useCategories";
 import { useSelectedFilters } from "../hooks/useSelectedFilters";
-import CustomScrollbar from "./CustomScrollbar";
 import SelectedFilter from "./SelectedFilter";
 
 
 const paddingY = 2
-const height = 180
-const trasitionDuration = 0.2
 
 
 const AnimatedGridItem = ({ children }) => {
@@ -21,7 +18,6 @@ const AnimatedGridItem = ({ children }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: trasitionDuration, }}
         >
             {children}
         </Grid>
@@ -79,81 +75,84 @@ const SelectedFilters = () => {
                             overflowY: 'hidden',
                         }}
                         component={motion.div}
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ height: Math.min(height, bounds.height) + paddingY * 14, opacity: 1 }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: trasitionDuration, }}
+                        initial={{
+                            opacity: 0,
+                        }}
+                        animate={{
+                            opacity: 1,
+                        }}
+                        exit={{
+                            opacity: 0,
+                        }}
                     >
-                        <CustomScrollbar height={height}>
-                            <Grid
-                                item
-                                container
-                                rowGap={1}
-                                columnGap={1}
-                                ref={ref}
-                                sx={{
-                                    py: 1,
-                                }}
-                            >
-                                <AnimatePresence>
-                                    {selectedCategories.map(id => {
-                                        const category = categories.find(category => category.id === id)
+                        <Grid
+                            item
+                            container
+                            rowGap={1}
+                            columnGap={1}
+                            ref={ref}
+                            sx={{
+                                py: 1,
+                            }}
+                        >
+                            <AnimatePresence>
+                                {selectedCategories.map(id => {
+                                    const category = categories.find(category => category.id === id)
 
-                                        return (
-                                            <AnimatedGridItem key={id}>
-                                                <SelectedFilter
-                                                    name={gender ? category.name : `${category.name} (${category.gender})`}
-                                                    value={id}
-                                                    filterName={'category'}
-                                                    handleValueChange={handleCategoryChange}
-                                                />
-                                            </AnimatedGridItem>
-                                        )
-                                    })}
-                                </AnimatePresence>
-
-                                <AnimatePresence>
-                                    {selectedColors.map(color =>
-                                        <AnimatedGridItem key={color}>
+                                    return (
+                                        <AnimatedGridItem key={id}>
                                             <SelectedFilter
-                                                name={color}
-                                                value={color}
-                                                filterName={'color'}
-                                                handleValueChange={handleColorChange}
+                                                name={gender ? category.name : `${category.name} (${category.gender})`}
+                                                value={id}
+                                                filterName={'category'}
+                                                handleValueChange={handleCategoryChange}
                                             />
                                         </AnimatedGridItem>
-                                    )}
-                                </AnimatePresence>
+                                    )
+                                })}
+                            </AnimatePresence>
 
+                            <AnimatePresence>
+                                {selectedColors.map(color =>
+                                    <AnimatedGridItem key={color}>
+                                        <SelectedFilter
+                                            name={color}
+                                            value={color}
+                                            filterName={'color'}
+                                            handleValueChange={handleColorChange}
+                                        />
+                                    </AnimatedGridItem>
+                                )}
+                            </AnimatePresence>
+
+                            <AnimatePresence>
+                                {selectedSizes.map(size =>
+                                    <AnimatedGridItem key={size}>
+                                        <SelectedFilter
+                                            name={size}
+                                            value={size}
+                                            filterName={'size'}
+                                            handleValueChange={handleSizeChange}
+                                        />
+                                    </AnimatedGridItem>
+                                )}
+                            </AnimatePresence>
+
+                            {
+                                selectedPriceRange !== '' &&
                                 <AnimatePresence>
-                                    {selectedSizes.map(size =>
-                                        <AnimatedGridItem key={size}>
-                                            <SelectedFilter
-                                                name={size}
-                                                value={size}
-                                                filterName={'size'}
-                                                handleValueChange={handleSizeChange}
-                                            />
-                                        </AnimatedGridItem>
-                                    )}
+                                    <AnimatedGridItem>
+                                        <SelectedFilter
+                                            name={selectedPriceRange}
+                                            value={selectedPriceRange}
+                                            filterName={'priceRange'}
+                                            handleValueChange={handlePriceChange}
+                                            nameFormat={(value) => `₹${value[0]} - ₹${value[1]}`}
+                                        />
+                                    </AnimatedGridItem>
                                 </AnimatePresence>
-
-                                {
-                                    selectedPriceRange !== '' &&
-                                    <AnimatePresence>
-                                        <AnimatedGridItem>
-                                            <SelectedFilter
-                                                name={selectedPriceRange}
-                                                value={selectedPriceRange}
-                                                filterName={'priceRange'}
-                                                handleValueChange={handlePriceChange}
-                                                nameFormat={(value) => `₹${value[0]} - ₹${value[1]}`}
-                                            />
-                                        </AnimatedGridItem>
-                                    </AnimatePresence>
-                                }
-                            </Grid>
-                        </CustomScrollbar>
+                            }
+                        </Grid>
                     </Grid>
                 }
             </AnimatePresence>

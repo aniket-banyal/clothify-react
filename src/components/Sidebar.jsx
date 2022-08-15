@@ -1,14 +1,15 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
-import { Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import { styled, useTheme } from '@mui/material/styles';
 import { useState } from 'react';
+import CustomScrollbar from './CustomScrollbar';
 
 
-const drawerWidth = 280;
+const drawerWidth = 300;
 
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -58,30 +59,38 @@ const Sidebar = ({ title, children }) => {
                     keepMounted: true,
                 }}
             >
-                <DrawerHeader>
-                    <Stack
+                <CustomScrollbar height={'100%'}>
+                    <Box
                         sx={{
-                            width: '100%',
+                            px: 1,
                         }}
-                        direction='row'
-                        justifyContent={'space-between'}
-                        alignItems={'center'}
                     >
-                        <Typography
-                            variant='h5'
-                            color='primary.main'
-                            sx={{ ml: 2 }}
-                        >
-                            {title}
-                        </Typography>
+                        <DrawerHeader>
+                            <Stack
+                                sx={{
+                                    width: '100%',
+                                }}
+                                direction='row'
+                                justifyContent={'space-between'}
+                                alignItems={'center'}
+                            >
+                                <Typography
+                                    variant='h5'
+                                    color='primary.main'
+                                    sx={{ ml: 1 }}
+                                >
+                                    {title}
+                                </Typography>
 
-                        <IconButton onClick={toggleDrawer}>
-                            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                        </IconButton>
-                    </Stack>
-                </DrawerHeader>
+                                <IconButton onClick={toggleDrawer}>
+                                    {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                                </IconButton>
+                            </Stack>
+                        </DrawerHeader>
 
-                {children}
+                        {children}
+                    </Box>
+                </CustomScrollbar>
             </Drawer>
         </>
     );
