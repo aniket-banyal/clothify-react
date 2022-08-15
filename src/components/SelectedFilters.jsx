@@ -1,13 +1,9 @@
 import { Grid } from "@mui/material";
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import { useSearchParams } from "react-router-dom";
-import useMeasure from "react-use-measure";
 import useCategories from "../hooks/api/useCategories";
 import { useSelectedFilters } from "../hooks/useSelectedFilters";
 import SelectedFilter from "./SelectedFilter";
-
-
-const paddingY = 2
 
 
 const AnimatedGridItem = ({ children }) => {
@@ -15,6 +11,7 @@ const AnimatedGridItem = ({ children }) => {
         <Grid
             item
             component={motion.div}
+            layout
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -34,8 +31,6 @@ const SelectedFilters = () => {
     const [searchParams] = useSearchParams()
     const gender = searchParams.get('gender')
     const { data: categories } = useCategories(gender)
-
-    const [ref, bounds] = useMeasure({ debounce: 1 })
 
     const handleColorChange = (clearedColor) => {
         setSelectedColors(selectedColors.filter(color => color !== clearedColor))
@@ -65,34 +60,28 @@ const SelectedFilters = () => {
                         selectedPriceRange !== ''
                     )
                     &&
-                    <Grid
-                        container
-                        sx={{
-                            py: paddingY,
-                            px: 2,
-                            bgcolor: 'grey.900',
-                            borderRadius: 2,
-                            overflowY: 'hidden',
-                        }}
-                        component={motion.div}
-                        initial={{
-                            opacity: 0,
-                        }}
-                        animate={{
-                            opacity: 1,
-                        }}
-                        exit={{
-                            opacity: 0,
-                        }}
-                    >
+                    <LayoutGroup>
                         <Grid
-                            item
                             container
                             rowGap={1}
                             columnGap={1}
-                            ref={ref}
                             sx={{
-                                py: 1,
+                                py: 2,
+                                px: 2,
+                                bgcolor: 'grey.900',
+                                borderRadius: 2,
+                                overflowY: 'hidden', // Need so that new SelectedFilter doesn't show up outside the container
+                            }}
+                            component={motion.div}
+                            layout
+                            initial={{
+                                opacity: 0,
+                            }}
+                            animate={{
+                                opacity: 1,
+                            }}
+                            exit={{
+                                opacity: 0,
                             }}
                         >
                             <AnimatePresence>
@@ -153,7 +142,7 @@ const SelectedFilters = () => {
                                 </AnimatePresence>
                             }
                         </Grid>
-                    </Grid>
+                    </LayoutGroup>
                 }
             </AnimatePresence>
         </>
