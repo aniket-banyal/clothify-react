@@ -86,7 +86,7 @@ const PriceFilter = () => {
                         max <= maxPrice
                     )}
                     onClick={() => setSelectedPriceRange([min, max])}
-                    onMouseEnter={() => prefetchClothes({ price: [min, max] })}
+                    onMouseEnter={() => prefetchClothes({ priceRange: [min, max] })}
                 >
                     Apply
                 </Button>

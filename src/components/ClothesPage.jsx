@@ -41,16 +41,16 @@ const ClothesPage = () => {
     const gender = searchParams.get('gender')
 
     const queryClient = useQueryClient()
-    const prefetchClothes = ({ category, size, color, price }) => {
+    const prefetchClothes = ({ category, size, color, priceRange }) => {
         let categories = getPrefetchFilterArray(selectedCategories, category)
         let colors = getPrefetchFilterArray(selectedColors, color)
         let sizes = getPrefetchFilterArray(selectedSizes, size)
         // In SelectedFilter, on hover price is set to ''
-        let priceRange = (price?.length === 2 || price === '') ? price : selectedPriceRange
+        let price = (priceRange?.length === 2 || priceRange === '') ? priceRange : selectedPriceRange
 
         queryClient.prefetchInfiniteQuery(
             [`infiniteClothes ${gender} ${colors} ${sizes} ${categories} ${price}`],
-            () => getPaginatedClothes({ gender, colors, sizes, categories, price: priceRange }),
+            () => getPaginatedClothes({ gender, colors, sizes, categories, price }),
             { staleTime: 1000 * 60 }
         )
     }

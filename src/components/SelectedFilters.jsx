@@ -145,7 +145,7 @@ const SelectedFilters = () => {
                                             <SelectedFilter
                                                 name={selectedPriceRange}
                                                 value={selectedPriceRange}
-                                                filterName={'price'}
+                                                filterName={'priceRange'}
                                                 handleValueChange={handlePriceChange}
                                                 nameFormat={(value) => `₹${value[0]} - ₹${value[1]}`}
                                             />
