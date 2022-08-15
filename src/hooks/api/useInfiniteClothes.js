@@ -4,6 +4,14 @@ import api from "../../api";
 
 const results_per_page = 15
 
+export const infiniteClothKeys = {
+    all: ['infiniteClothes'],
+    lists: () => [...infiniteClothKeys.all, 'list'],
+    list: ({ gender = '', colors = [], sizes = [], categories = [], price = '' }) =>
+        [...infiniteClothKeys.lists(),
+        { gender, colors, sizes, categories, price }
+        ],
+}
 
 export const getPaginatedClothes = async ({ gender, colors, sizes, categories, price, page = 1 }) => {
     if (!gender)
@@ -44,7 +52,7 @@ export const useInfiniteClothes = ({ gender, colors, sizes, categories, price, s
     categories?.sort()
 
     return useInfiniteQuery(
-        [`infiniteClothes ${gender} ${colors} ${sizes} ${categories} ${price}`],
+        infiniteClothKeys.list({ gender, colors, sizes, categories, price }),
         ({ pageParam: page }) => getPaginatedClothes({ gender, colors, sizes, categories, price, page }),
         {
             getNextPageParam: (lastPage, allPages) => {

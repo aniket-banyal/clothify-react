@@ -4,12 +4,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Suspense, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { GenderContext } from '../context/GenderContext';
-import { getClothes } from "../hooks/api/useClothes";
+import { getPaginatedClothes, infiniteClothKeys } from "../hooks/api/useInfiniteClothes";
 import Categories from './Categories';
 import CenteredCircularProgress from './CenteredCircularProgress';
 import ClothesList from "./ClothesList";
 import ErrorFallback from './ErrorFallback';
-import HomePageBanner from "./HomePageBanner";
+import HomePageBanner from './HomePageBanner';
 
 
 const genderValues = [
@@ -29,7 +29,12 @@ const HomePage = () => {
 
     const queryClient = useQueryClient()
     useEffect(() => {
-        genderValues.forEach(({ value }) => queryClient.prefetchQuery([`clothes ${value}`], () => getClothes({ gender: value })))
+        genderValues.forEach(({ value: gender }) =>
+            queryClient.prefetchInfiniteQuery(
+                infiniteClothKeys.list({ gender }),
+                () => getPaginatedClothes({ gender })
+            )
+        )
     }, [])
 
     return (
