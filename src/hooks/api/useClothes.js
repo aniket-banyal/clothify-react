@@ -25,7 +25,9 @@ export const clothKeys = {
             ...clothKeys.lists(),
             { gender, colors, sizes, categories, price }
         ])
-    }
+    },
+    details: () => [...clothKeys.all, 'detail'],
+    detail: (id) => [...clothKeys.details(), id],
 }
 
 
