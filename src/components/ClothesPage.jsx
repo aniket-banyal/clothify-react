@@ -6,7 +6,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ClothesPrefetchContext } from '../context/ClothesPrefetchContext';
 import { FiltersContext } from '../context/FiltersContext';
-import { getPaginatedClothes } from '../hooks/api/useInfiniteClothes';
+import { getPaginatedClothes, infiniteClothKeys } from '../hooks/api/useInfiniteClothes';
 import CenteredCircularProgress from './CenteredCircularProgress';
 import Filters from './Filters';
 import InfiniteClothesList from './InfiniteClothesList';
@@ -26,7 +26,6 @@ const getPrefetchFilterArray = (arr, val) => {
         else
             newArr.push(val)
 
-    newArr.sort()
     return newArr
 }
 
@@ -49,7 +48,7 @@ const ClothesPage = () => {
         let price = (priceRange?.length === 2 || priceRange === '') ? priceRange : selectedPriceRange
 
         queryClient.prefetchInfiniteQuery(
-            [`infiniteClothes ${gender} ${colors} ${sizes} ${categories} ${price}`],
+            infiniteClothKeys.list({ gender, colors, sizes, categories, price }),
             () => getPaginatedClothes({ gender, colors, sizes, categories, price }),
             { staleTime: 1000 * 60 }
         )

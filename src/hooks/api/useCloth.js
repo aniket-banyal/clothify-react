@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../../api";
+import { clothKeys } from "./useClothes";
 
 
 export const getCloth = async ({ clothId }) => {
@@ -11,7 +12,7 @@ export const getCloth = async ({ clothId }) => {
 
 export default function useCloth({ clothId, suspense = true }) {
     return useQuery(
-        [`clothes ${clothId}`],
+        clothKeys.detail(clothId),
         () => getCloth({ clothId }),
         { suspense }
     )
