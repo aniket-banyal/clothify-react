@@ -2,7 +2,34 @@ import { useQuery } from "@tanstack/react-query";
 import api from "../../api";
 
 
-export const getClothes = async ({ gender, colors, sizes, categories }) => {
+export const clothKeys = {
+    all: ['clothes'],
+    lists: () => [...clothKeys.all, 'list'],
+    list: ({
+        gender = '',
+        colors = [],
+        sizes = [],
+        categories = [],
+        price = '',
+    }) => {
+        // Creating copy so that original array doesn't get modified, which causes UI issue in SelectedFilters
+        colors = colors?.slice()
+        sizes = sizes?.slice()
+        categories = categories?.slice()
+        // Sorting so that queryKey remains same even if order of colors and sort changes
+        colors?.sort()
+        sizes?.sort()
+        categories?.sort()
+
+        return ([
+            ...clothKeys.lists(),
+            { gender, colors, sizes, categories, price }
+        ])
+    }
+}
+
+
+export const getClothes = async ({ gender, colors, sizes, categories, price }) => {
     if (!gender)
         gender = ''
     if (!colors)
@@ -11,8 +38,16 @@ export const getClothes = async ({ gender, colors, sizes, categories }) => {
         sizes = []
     if (!categories)
         categories = []
+    if (!price)
+        price = []
 
-    const searchParams = new URLSearchParams({ gender, color: colors, size: sizes, category: categories })
+    const searchParams = new URLSearchParams({
+        gender,
+        color: colors,
+        size: sizes,
+        category: categories,
+        sell_price: price,
+    })
     const { data } = await api.get(
         "/clothes/",
         { params: searchParams }
@@ -21,19 +56,12 @@ export const getClothes = async ({ gender, colors, sizes, categories }) => {
 }
 
 
-export default function useClothes({ gender, colors, sizes, categories, suspense = true }) {
-    // Creating copy so that original array doesn't get modified, which causes UI issue in SelectedFilters
-    colors = colors?.slice()
-    sizes = sizes?.slice()
-    categories = categories?.slice()
-    // Sorting so that queryKey remains same even if order of colors and sort changes
-    colors?.sort()
-    sizes?.sort()
-    categories?.sort()
+export default function useClothes({ gender, colors, sizes, categories, price }, queryOptions = {}) {
+    const { suspense = true } = queryOptions
 
     return useQuery(
-        [`clothes ${gender} ${colors} ${sizes} ${categories}`],
-        () => getClothes({ gender, colors, sizes, categories }),
+        clothKeys.list({ gender, colors, sizes, categories, price }),
+        () => getClothes({ gender, colors, sizes, categories, price }),
         { suspense }
     )
 }
