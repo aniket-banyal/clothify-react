@@ -26,7 +26,6 @@ const getPrefetchFilterArray = (arr, val) => {
         else
             newArr.push(val)
 
-    newArr.sort()
     return newArr
 }
 

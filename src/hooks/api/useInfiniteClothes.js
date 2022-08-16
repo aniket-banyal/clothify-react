@@ -7,10 +7,27 @@ const results_per_page = 15
 export const infiniteClothKeys = {
     all: ['infiniteClothes'],
     lists: () => [...infiniteClothKeys.all, 'list'],
-    list: ({ gender = '', colors = [], sizes = [], categories = [], price = '' }) =>
-        [...infiniteClothKeys.lists(),
-        { gender, colors, sizes, categories, price }
-        ],
+    list: ({
+        gender = '',
+        colors = [],
+        sizes = [],
+        categories = [],
+        price = '',
+    }) => {
+        // Creating copy so that original array doesn't get modified, which causes UI issue in SelectedFilters
+        colors = colors?.slice()
+        sizes = sizes?.slice()
+        categories = categories?.slice()
+        // Sorting so that queryKey remains same even if order of colors and sort changes
+        colors?.sort()
+        sizes?.sort()
+        categories?.sort()
+
+        return ([
+            ...infiniteClothKeys.lists(),
+            { gender, colors, sizes, categories, price }
+        ])
+    }
 }
 
 export const getPaginatedClothes = async ({ gender, colors, sizes, categories, price, page = 1 }) => {
@@ -42,15 +59,6 @@ export const getPaginatedClothes = async ({ gender, colors, sizes, categories, p
 }
 
 export const useInfiniteClothes = ({ gender, colors, sizes, categories, price, suspense = true }) => {
-    // Creating copy so that original array doesn't get modified, which causes UI issue in SelectedFilters
-    colors = colors?.slice()
-    sizes = sizes?.slice()
-    categories = categories?.slice()
-    // Sorting so that queryKey remains same even if order of colors and sort changes
-    colors?.sort()
-    sizes?.sort()
-    categories?.sort()
-
     return useInfiniteQuery(
         infiniteClothKeys.list({ gender, colors, sizes, categories, price }),
         ({ pageParam: page }) => getPaginatedClothes({ gender, colors, sizes, categories, price, page }),
