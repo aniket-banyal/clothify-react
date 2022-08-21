@@ -1,7 +1,7 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Divider, Stack, Typography } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import { styled, useTheme } from '@mui/material/styles';
@@ -66,27 +66,32 @@ const Sidebar = ({ title, children }) => {
                         }}
                     >
                         <DrawerHeader>
-                            <Stack
-                                sx={{
-                                    width: '100%',
-                                }}
-                                direction='row'
-                                justifyContent={'space-between'}
-                                alignItems={'center'}
-                            >
-                                <Typography
-                                    variant='h5'
-                                    color='primary.main'
-                                    sx={{ ml: 1 }}
-                                >
-                                    {title}
-                                </Typography>
-
-                                <IconButton onClick={toggleDrawer}>
-                                    {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                                </IconButton>
-                            </Stack>
+                            <IconButton onClick={toggleDrawer}>
+                                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                            </IconButton>
                         </DrawerHeader>
+
+                        <Divider variant='fullWidth' />
+
+                        <Stack
+                            sx={{
+                                width: '100%',
+                                mx: 2,
+                                mt: 2,
+                            }}
+                            direction='row'
+                            justifyContent={'space-between'}
+                            alignItems={'center'}
+                        >
+                            <Typography
+                                variant='h5'
+                                color='primary.main'
+                                sx={{ ml: 1 }}
+                            >
+                                {title}
+                            </Typography>
+
+                        </Stack>
 
                         {children}
                     </Box>
