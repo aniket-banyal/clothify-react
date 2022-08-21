@@ -1,8 +1,7 @@
 <a name="readme-top"></a>
 
-
 <!-- PROJECT LOGO -->
-<br />
+<!-- <br /> -->
 <div align="center">
   <!-- <a href="https://github.com/dummy26/clothify-react">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
@@ -65,8 +64,7 @@
 
 ### Prerequisites
 
-- node
-
+- [Node](https://nodejs.org/en/download/current/)
 
 ### Installation
 
