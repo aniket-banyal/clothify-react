@@ -73,25 +73,13 @@ const Sidebar = ({ title, children }) => {
 
                         <Divider variant='fullWidth' />
 
-                        <Stack
+                        <Box
                             sx={{
-                                width: '100%',
-                                mx: 2,
                                 mt: 2,
                             }}
-                            direction='row'
-                            justifyContent={'space-between'}
-                            alignItems={'center'}
                         >
-                            <Typography
-                                variant='h5'
-                                color='primary.main'
-                                sx={{ ml: 1 }}
-                            >
-                                {title}
-                            </Typography>
-
-                        </Stack>
+                            {title}
+                        </Box>
 
                         {children}
                     </Box>

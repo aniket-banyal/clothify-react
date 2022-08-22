@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
@@ -55,11 +55,15 @@ const ClothesPage = () => {
     }
 
     useEffect(() => {
+        clearFilters()
+    }, [gender])
+
+    const clearFilters = () => {
         setSelectedCategories([])
         setSelectedColors([])
         setSelectedSizes([])
         setSelectedPriceRange('')
-    }, [gender])
+    }
 
 
     return (
@@ -94,7 +98,44 @@ const ClothesPage = () => {
                             initial={{ x: '-10%' }}
                             animate={{ x: 0 }}
                         >
-                            <Sidebar title='Filters'>
+                            <Sidebar
+                                title={
+                                    <Stack
+                                        sx={{
+                                            mt: 2
+                                        }}
+                                        direction='row'
+                                        justifyContent={'space-between'}
+                                        alignItems='center'
+                                    >
+                                        <Typography
+                                            variant='h5'
+                                            color='primary.main'
+                                            sx={{ ml: 2 }}
+                                        >
+                                            Filters
+                                        </Typography>
+                                        <Button
+                                            variant="outlined"
+                                            sx={{
+                                                mx: 2,
+                                            }}
+                                            size={'small'}
+                                            onClick={clearFilters}
+                                            disabled={
+                                                !(
+                                                    selectedCategories.length > 0 ||
+                                                    selectedColors.length > 0 ||
+                                                    selectedSizes.length > 0 ||
+                                                    selectedPriceRange !== ''
+                                                )
+                                            }
+                                        >
+                                            Clear All
+                                        </Button>
+                                    </Stack>
+                                }
+                            >
                                 <Suspense fallback={<CenteredCircularProgress />}>
                                     <Stack
                                         direction='column'
