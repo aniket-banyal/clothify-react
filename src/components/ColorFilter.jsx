@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -29,20 +29,32 @@ const ColorFilter = () => {
             }}>
             <FormControl component="fieldset" variant="standard">
                 <FormGroup>
-                    {colors.map(color =>
-                        <FormControlLabel
-                            key={color}
-                            label={<Typography variant="body2" color="text.secondary">{color}</Typography>}
-                            control={
-                                <Checkbox
-                                    sx={{ color: color }}
-                                    checked={selectedColors.includes(color)}
-                                    onChange={handleChange}
-                                    name={color}
-                                />
-                            }
-                            onMouseEnter={() => prefetchClothes({ color })}
-                        />
+                    {colors.map(({ name, count }) =>
+                        <Stack
+                            key={name}
+                            direction={'row'}
+                            alignItems={'center'}
+                        >
+                            <FormControlLabel
+                                label={<Typography variant="body2" color="text.secondary">{name}</Typography>}
+                                control={
+                                    <Checkbox
+                                        sx={{ color: name }}
+                                        checked={selectedColors.includes(name)}
+                                        onChange={handleChange}
+                                        name={name}
+                                    />
+                                }
+                                onMouseEnter={() => prefetchClothes({ color: name })}
+                            />
+
+                            <Typography
+                                color={'grey.500'}
+                                variant={'body2'}
+                            >
+                                ({count})
+                            </Typography>
+                        </Stack>
                     )}
                 </FormGroup>
             </FormControl>

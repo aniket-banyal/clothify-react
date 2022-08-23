@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -34,23 +34,34 @@ const CategoryFilter = () => {
             }}>
             <FormControl component="fieldset" variant="standard">
                 <FormGroup>
-                    {categories.map(category =>
-                        <FormControlLabel
-                            key={category.id}
-                            label={
-                                <Typography variant="body2" color="text.secondary">
-                                    {gender ? category.name : `${category.name} (${category.gender})`}
-                                </Typography>
-                            }
-                            control={
-                                <Checkbox
-                                    checked={selectedCategories.includes(category.id)}
-                                    onChange={handleChange}
-                                    value={category.id}
-                                />
-                            }
-                            onMouseEnter={() => prefetchClothes({ category: category.id })}
-                        />
+                    {categories.map(({ id, name, gender: clothGender, count }) =>
+                        <Stack
+                            key={id}
+                            direction={'row'}
+                            alignItems={'center'}
+                        >
+                            <FormControlLabel
+                                label={
+                                    <Typography variant="body2" color="text.secondary">
+                                        {gender ? name : `${name} (${clothGender})`}
+                                    </Typography>
+                                }
+                                control={
+                                    <Checkbox
+                                        checked={selectedCategories.includes(id)}
+                                        onChange={handleChange}
+                                        value={id}
+                                    />
+                                }
+                                onMouseEnter={() => prefetchClothes({ category: id })}
+                            />
+                            <Typography
+                                color={'grey.500'}
+                                variant={'body2'}
+                            >
+                                ({count})
+                            </Typography>
+                        </Stack>
                     )}
                 </FormGroup>
             </FormControl>
