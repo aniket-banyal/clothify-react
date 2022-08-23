@@ -8,6 +8,9 @@ import { useClothesPrefetch } from "../hooks/useClothesPrefetch";
 import { useSelectedFilters } from '../hooks/useSelectedFilters';
 
 
+const circleRadius = 15;
+
+
 const ColorFilter = () => {
     const { data: colors } = useColors()
     const { selectedColors, setSelectedColors } = useSelectedFilters()
@@ -36,10 +39,23 @@ const ColorFilter = () => {
                             alignItems={'center'}
                         >
                             <FormControlLabel
-                                label={<Typography variant="body2" color="text.secondary">{name}</Typography>}
+                                label={
+                                    <Stack direction={'row'} alignItems='center' spacing={1}>
+                                        <Box sx={{
+                                            background: name === 'Multi' ? 'conic-gradient(red, yellow, lime, aqua, blue, magenta, red)' : name,
+                                            height: circleRadius,
+                                            width: circleRadius,
+                                            border: '2px solid white',
+                                            borderRadius: '50%'
+                                        }} ></Box>
+
+                                        <Typography variant="body2" color="text.secondary">
+                                            {name}
+                                        </Typography>
+                                    </Stack>
+                                }
                                 control={
                                     <Checkbox
-                                        sx={{ color: name }}
                                         checked={selectedColors.includes(name)}
                                         onChange={handleChange}
                                         name={name}
