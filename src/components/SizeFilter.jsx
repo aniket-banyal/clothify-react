@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -30,19 +30,31 @@ const SizeFilter = () => {
             }}>
             <FormControl component="fieldset" variant="standard">
                 <FormGroup>
-                    {sizes.map(size =>
-                        <FormControlLabel
-                            key={size}
-                            label={<Typography variant="body2" color="text.secondary">{size}</Typography>}
-                            control={
-                                <Checkbox
-                                    checked={selectedSizes.includes(size)}
-                                    onChange={handleChange}
-                                    name={size}
-                                />
-                            }
-                            onMouseEnter={() => prefetchClothes({ size })}
-                        />
+                    {sizes.map(({ name, count }) =>
+                        <Stack
+                            key={name}
+                            direction={'row'}
+                            alignItems={'center'}
+                        >
+
+                            <FormControlLabel
+                                label={<Typography variant="body2" color="text.secondary">{name}</Typography>}
+                                control={
+                                    <Checkbox
+                                        checked={selectedSizes.includes(name)}
+                                        onChange={handleChange}
+                                        name={name}
+                                    />
+                                }
+                                onMouseEnter={() => prefetchClothes({ size: name })}
+                            />
+                            <Typography
+                                color={'grey.500'}
+                                variant={'body2'}
+                            >
+                                ({count})
+                            </Typography>
+                        </Stack>
                     )}
                 </FormGroup>
             </FormControl>
