@@ -24,18 +24,23 @@ const Collapsible = ({ title, children, expanded, toggleExpanded }) => {
                 justifyContent={'space-between'}
                 alignItems='center'
                 sx={{
-                    px: 1
+                    px: 1,
+                    '&:hover': {
+                        cursor: 'pointer',
+                    }
                 }}
+                onClick={toggleExpanded}
             >
                 <Typography
                     color={expanded ? 'primary.main' : 'text.primary'}
-                    sx={{ ml: 2 }}
+                    sx={{
+                        ml: 2
+                    }}
                 >
                     {title}
                 </Typography>
                 <ExpandMore
                     expand={expanded ? 1 : 0}
-                    onClick={toggleExpanded}
                 >
                     <ExpandMoreIcon />
                 </ExpandMore>
