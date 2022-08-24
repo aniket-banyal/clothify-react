@@ -27,7 +27,11 @@ export const clothKeys = {
         ])
     },
     details: () => [...clothKeys.all, 'detail'],
-    detail: (id) => [...clothKeys.details(), id],
+    detail: (id) => {
+        if (typeof (id) === 'string')
+            id = parseInt(id)
+        return [...clothKeys.details(), id]
+    },
 }
 
 
