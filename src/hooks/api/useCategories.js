@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../../api";
+import { reactQueryConstants } from "../../constants";
 
 
 const getCategories = async (gender) => {
@@ -16,17 +17,13 @@ const getCategories = async (gender) => {
 }
 
 
-const oneMinute = 1000 * 60
-const staleTime = 5 * oneMinute
-
-
 export default function useCategories(gender) {
     return useQuery(
         [`categories ${gender}`],
         () => getCategories(gender),
         {
             suspense: true,
-            staleTime
+            staleTime: reactQueryConstants.oneMinuteInMilliSeconds,
         }
     )
 }

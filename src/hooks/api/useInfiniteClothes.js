@@ -1,5 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import api from "../../api";
+import { reactQueryConstants } from "../../constants";
 
 
 const results_per_page = 15
@@ -69,6 +70,7 @@ export const useInfiniteClothes = ({ gender, colors, sizes, categories, price, s
             select: (data) => ({ ...data, pages: data.pages.flatMap(page => page.results) }),
             suspense,
             keepPreviousData: true,
+            staleTime: reactQueryConstants.useInfiniteClothes.staleTime,
         }
     )
 }

@@ -1,23 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import api from "../../api";
-
+import { useQuery } from "@tanstack/react-query"
+import api from "../../api"
+import { reactQueryConstants } from "../../constants"
 
 const getPriceRange = async () => {
-    const { data } = await api.get(
-        "/clothes/price-range"
-    )
+    const { data } = await api.get("/clothes/price-range")
     return data
 }
 
-
-const oneMinute = 1000 * 60
-const staleTime = 5 * oneMinute
-
-
 export default function usePriceRange() {
-    return useQuery(
-        [`clothes price-range`],
-        getPriceRange,
-        { staleTime }
-    )
+    return useQuery([`clothes price-range`], getPriceRange, {
+        staleTime: reactQueryConstants.oneMinuteInMilliSeconds,
+    })
 }
